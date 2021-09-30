@@ -1,0 +1,9 @@
+Sep-27 8:30pm - 10:00pm
+  -All attended, Yuri left after 10pm
+  -Looked at the project 2 source code as a group.
+  -Discussed the requirements for project 2 (mostly the AI opponent and custom addition).
+  -Began discussing how to implement the AI opponent and what our custom addition will be.
+  -Decided to establish a tasklist in Google Doc in order to manage current tasks.
+  -TASKS:
+    -Nifemi: Fork Group 6's project 1 repository and make a branch for Group 18.
+	-Yuri: Make/share the Google Doc and make the work-hours.txt file.

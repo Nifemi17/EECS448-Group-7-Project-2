@@ -1,0 +1,8 @@
+Format
+  -[name]: [hour]:[minute]
+
+Sep-27
+  -Team Meeting: 1:30
+  
+Sep-28
+  -Yuri: 0:58
