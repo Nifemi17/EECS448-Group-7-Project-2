@@ -6,4 +6,20 @@ Sep-27 8:30pm - 10:00pm
   -Decided to establish a tasklist in Google Doc in order to manage current tasks.
   -TASKS:
     -Nifemi: Fork Group 6's project 1 repository and make a branch for Group 18.
-	-Yuri: Make/share the Google Doc and make the work-hours.txt file.
+    -Yuri: Make/share the Google Doc and make the work-hours.txt file.
+
+Sep-30 6:30pm - 7:54pm
+  -Attendees: Rudro, Nifemi, Yuri, Anna
+  -Completed plan for Custom Addition:
+    -Add background images for intro and gameplay screens
+	-Add images for ships, hit and miss, special ability
+	-Decided on making a "sonar" ability that reveals ships in a portion of the board.
+	-The ship placement, and the selection for the sonar ability, will be handled by clicking and dragging icons onto the board.
+	-incorporate music for the intro and gameplay and sounds for hits, misses, and game end.
+  -Discussed task delegation and AI implementation.
+  -TASKS:
+    -Nifemi: add screen backgrounds for intro and gameplay.
+	-Anna: change ship number selections into buttons on canvas instead of keyboard input.
+	-Rudro: make the game fit inside the browser window.
+	-Yuri: write/send custom proposal to GTA, research Requirement Engineering Artifact and work-hours estimate methods.
+  -NEXT MEETING: Sunday
