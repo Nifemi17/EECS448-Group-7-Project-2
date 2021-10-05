@@ -1,10 +1,23 @@
+/**
+*  helper function to manage the sonar ability
+*/
+
+/**
+*  Stores all data used when managing the sonar ability.
+*/
 let sonarIc = {image: ' ', x: 800, y: 250, size: 100, isEnabled: false, isPlaced: false};
 
-
+/**
+* draws the sonar icon image as a canvas element
+* @param context canvas context from main.js
+*/
 function drawSonar(context) {
 	context.drawImage(sonarIc.image, sonarIc.x, sonarIc.y, sonarIc.size, sonarIc.size);
 }
 
+/**
+*
+*/
 function placeSonar(centerR, centerC) {
 	if (centerC > 0 && centerC < 9 && centerR > 0 && centerR < 8)
 	{
