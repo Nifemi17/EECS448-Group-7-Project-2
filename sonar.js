@@ -1,5 +1,7 @@
-function validSonarPlace(centerX, centerY) {
-	if (centerX > 0 && centerX < 10 && centerY > 0 && centerY < 9)
+let sonarIc = {image: ' ', x: 800, y: 250, size: 100, isEnabled: false, isPlaced: false};
+
+function validSonarPlace(centerR, centerC) {
+	if (centerC > 0 && centerC < 9 && centerR > 0 && centerR < 8)
 	{
 		return true;
 	}
@@ -16,4 +18,12 @@ function revealShips(r, c, tBoard) {
 		return true;
 	}
 	return false;
+}
+
+function resetSonar() {
+	sonarIc.isEnabled = false;
+	sonarIc.x = 800;
+	sonarIc.y = 250;
+	sonarIc.size = 100;
+	sonarIc.isPlaced = false;
 }

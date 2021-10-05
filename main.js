@@ -37,7 +37,6 @@ Once a player has sunk all of the opponent's ships, they immediatley win.
 
 let canvas;
 let context;
-let sonarIc = {image: ' ', x: 800, y: 250, size: 100, isEnabled: false, isPlaced: false};
 let gamePhase = "setup"; //string that determines what state of the game is displayd {"setup", "place", "play", "end"}
 let playerTurn = 0; //int that determines which player is able to shoot and on which board, changes with each shot. { 1, 0 }
 let shipNum; //int that determines the number of ships to start the game. { 1, 2, 3, 4, 5, 6 }
@@ -595,11 +594,7 @@ document.addEventListener('mousedown', function(event) {
 			}
 			
 			else {
-				sonarIc.isEnabled = false;
-				sonarIc.x = 800;
-				sonarIc.y = 250;
-				sonarIc.size = 100;
-				sonarIc.isPlaced = false;
+				resetSonar()
 			}
 		}
 			
@@ -616,11 +611,7 @@ document.addEventListener('mousedown', function(event) {
 						}
 					}
 				}
-			sonarIc.isEnabled = false;
-			sonarIc.x = 800;
-			sonarIc.y = 250;
-			sonarIc.size = 100;
-			sonarIc.isPlaced = false;
+				resetSonar();
 			}
         }
     }
