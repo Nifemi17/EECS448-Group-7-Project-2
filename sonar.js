@@ -9,9 +9,9 @@ function placeSonar(centerR, centerC) {
 	if (centerC > 0 && centerC < 9 && centerR > 0 && centerR < 8)
 	{
 		sonarIc.isPlaced = true;
-		sonarIc.x = (1000 + (colSelect * 65));
-		sonarIc.y = (75 + (rowSelect * 65));
-		sonarIc.size = 65;
+		sonarIc.x = (1000 + ((colSelect - 1) * 65));
+		sonarIc.y = (75 + ((rowSelect - 1) * 65));
+		sonarIc.size = 195;
 	}
 	
 	else
