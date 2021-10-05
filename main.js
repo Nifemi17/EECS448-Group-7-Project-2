@@ -573,22 +573,17 @@ document.addEventListener('mousedown', function(event) {
 			rowSelect = temp.row;
 			colSelect = temp.col;
 			boardSelect = temp.playerBoard;
-			if (sonarIc.isEnabled == false) {
+			if (!sonarIc.isEnabled) {
 				isHighlight = true;
 			}
 			
 			else {
-				if (validSonarPlace(rowSelect, colSelect)) {
-					sonarIc.isPlaced = true;
-					sonarIc.x = (1000 + (colSelect * 65));
-					sonarIc.y = (75 + (rowSelect * 65));
-					sonarIc.size = 65;
-				}
+				placeSonar(rowSelect, colSelect);
 			}	
         }
 		
 		if ((event.pageX > 800 && event.pageX < (900)) && (event.pageY > 250 && event.pageY < (350))) {
-			if (sonarIc.isEnabled == false) {
+			if (!sonarIc.isEnabled) {
 				sonarIc.isEnabled = true;
 				isHighlight = false;
 			}

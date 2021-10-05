@@ -5,15 +5,18 @@ function drawSonar(context) {
 	context.drawImage(sonarIc.image, sonarIc.x, sonarIc.y, sonarIc.size, sonarIc.size);
 }
 
-function validSonarPlace(centerR, centerC) {
+function placeSonar(centerR, centerC) {
 	if (centerC > 0 && centerC < 9 && centerR > 0 && centerR < 8)
 	{
-		return true;
+		sonarIc.isPlaced = true;
+		sonarIc.x = (1000 + (colSelect * 65));
+		sonarIc.y = (75 + (rowSelect * 65));
+		sonarIc.size = 65;
 	}
 	
 	else
 	{
-		return false;
+		console.log("Invalid sonar placement");
 	}
 }
 
