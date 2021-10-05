@@ -292,7 +292,7 @@ function drawGrid()
         }
     }
     else if (gamePhase == "play") {
-		context.drawImage(sonarIc.image, sonarIc.x, sonarIc.y, sonarIc.size, sonarIc.size);
+		drawSonar(context);
         context.fillText("Place your shot", 770, 450);
         context.fillText("------>", 820, 480);
         context.fillText("Fire", 1300, 750);
@@ -594,7 +594,7 @@ document.addEventListener('mousedown', function(event) {
 			}
 			
 			else {
-				resetSonar()
+				resetSonar();
 			}
 		}
 			

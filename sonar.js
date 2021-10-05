@@ -1,5 +1,10 @@
 let sonarIc = {image: ' ', x: 800, y: 250, size: 100, isEnabled: false, isPlaced: false};
 
+
+function drawSonar(context) {
+	context.drawImage(sonarIc.image, sonarIc.x, sonarIc.y, sonarIc.size, sonarIc.size);
+}
+
 function validSonarPlace(centerR, centerC) {
 	if (centerC > 0 && centerC < 9 && centerR > 0 && centerR < 8)
 	{
