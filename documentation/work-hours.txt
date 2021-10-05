@@ -20,3 +20,7 @@ Oct-3
 Oct-4
   -Team Meeting: 1:00
   -Yuri:         3:00
+  -Anna:         2:00
+
+  Oct-5
+  -Anna:         3:00

@@ -48,34 +48,9 @@ let boardSelect; //int that stores a selected board for use after it's highlight
 let isHighlight = false; //denotes whether or not there is an active square highlighted
 let curShipIndex; //keeps track of shipIndex for the place phase
 let shotOutcomeText; //Global shot outcome text holder for intermission phase
+let height = window.innerHeight;
+let width = window.innerWidth;
 
-
-/**
- * draws the start menu for ship selection
- */
-function gameSetup()
-{
-    context.font = "30pt Georgia";
-    context.fillText("Battleship Game", 725, 150);
-    context.font = "18pt Georgia";
-    context.fillStyle = "black";
-    context.fillText("Press a key:", 800, 210);
-    context.fillText("Select a number of ships. 1-6", 720, 250);
-    context.beginPath();
-    context.moveTo(720, 600);
-    context.lineTo(1040, 600);
-    context.lineTo(1040, 700);
-    context.lineTo(720, 700);
-    context.lineTo(720, 600);
-    context.strokeStyle = 'black';
-    context.lineWidth = 2;
-    context.stroke();
-    context.closePath();
-    context.fillText("Confirm Selection", 770, 655);
-    if(userShips != null){
-        context.fillText(userShips, 850, 450);
-    }
-}
 
 /**
  * Calls drawGrid and then fillGrid for the place phase, setting up the game board
@@ -148,56 +123,7 @@ function gameEnd()
     }
 }
 
-/**
- * Draws a red square around a selected coordinate
- * @param {number} x x coordinate
- * @param {number} y y coordinate
- * @param {number} board value storing either the left or right board
- */
-function setHighlight(x, y, board)
-{
-    //if the selection is on the left board, draws a red square surrounding selection.
-    if(board == 0){
-            context.beginPath();
-            context.moveTo(100 + (x * 65), 75 + (y * 65));
-            context.lineTo(165 + (x * 65), 75 + (y * 65));
-            context.lineTo(165 + (x * 65), 140 + (y * 65));
-            context.lineTo(100 + (x * 65), 140 + (y * 65));
-            context.lineTo(100 + (x * 65), 75 + (y * 65));
-            context.strokeStyle = 'red';
-            context.lineWidth = 4;
-            context.stroke();
-            context.closePath();
-    }
-    //if the selection is on the right board, draws a red square surrounding selection.
-    if(board == 1){
-            context.beginPath();
-            context.moveTo(1000 + (x * 65), 75 + (y * 65));
-            context.lineTo(1065 + (x * 65), 75 + (y * 65));
-            context.lineTo(1065 + (x * 65), 140 + (y * 65));
-            context.lineTo(1000 + (x * 65), 140 + (y * 65));
-            context.lineTo(1000 + (x * 65), 75 + (y * 65));
-            context.strokeStyle = 'red';
-            context.lineWidth = 4;
-            context.stroke();
-            context.closePath();
-    }
-}
 
-/**
- * Takes user input for a number of ships and checks it's valid, then if it is sets the number of ships
- * @param {number} n stores user input
- */
-function setShipNum(n){
-    if(n != "1" && n != "2" && n != "3" && n != "4" && n != "5" && n != "6"){
-        console.log("Throw");
-        throw "Invalid number, pick again";
-    }
-    else{
-        console.log("No Throw");
-        shipNum = n;
-    }
-}
 
 /**
  * Draws all of the UI elements of the board depending on what phase the game is in
@@ -253,6 +179,8 @@ function drawGrid()
         context.fillText(k + 1, 965, 115 + (k*65));
     }
 
+    //SECTION 2
+
     if(gamePhase == "place")
     {
 	    if(playerTurn == 0){
@@ -291,6 +219,9 @@ function drawGrid()
             }
         }
     }
+
+    //WHEN PLAYING
+
     else if (gamePhase == "play") {
 		drawSonar(context);
         context.fillText("Place your shot", 770, 450);
@@ -431,31 +362,6 @@ function clickCoord(x, y)
     }
 }
 
-/**
- * Places a ship at the highlighted coordinate from setHighlight
- */
-function Confirm() {
-    console.log("Hello confirm!");
-    if (playerBoards[playerTurn].isValidSetShip(curShipIndex)) {
-        playerBoards[playerTurn].setShip(curShipIndex);
-        curShipIndex--;
-
-        if (curShipIndex < 0) {
-            if (playerTurn == 1) {
-                playerTurn = 0;
-                gamePhase = "play";
-                isHighlight = false;
-            }
-            else {
-                curShipIndex = shipNum - 1;
-                playerTurn = 1;
-            }
-        }
-    }
-    else {
-        console.log("Cannot place ship here.");
-    }
-}
 
 /**
  * Davis: This one needs a more detailed description than I can give
@@ -513,10 +419,12 @@ function Shoot(r, c){
  */
 document.addEventListener("keydown", function(event){
     console.log(event.key);
+    //SECTION 1
     if(gamePhase == "setup"){
         userShips = event.key;
         //console.log(userShips);
     }
+    //SECTION 2
     if(gamePhase == "place"){
         if(event.key == ' '){
             console.log("TESTING: ", event.key);
@@ -533,6 +441,7 @@ document.addEventListener("keydown", function(event){
  */
 document.addEventListener('mousedown', function(event) {
     console.log(event.pageX, event.pageY);
+    //SECTION 1
     if(gamePhase == "setup"){
         if(770 < event.pageX && 1056 > event.pageX){
             if(607 < event.pageY && 708 > event.pageY){
@@ -551,6 +460,7 @@ document.addEventListener('mousedown', function(event) {
             }
         }
     }
+    //SECTION 2
     else if(gamePhase == "place"){
         if ((event.pageX > 100 && event.pageX < 750) && (event.pageY > 75 && event.pageY < 660)) {
             let temp = clickCoord(event.pageX, event.pageY);
@@ -560,11 +470,17 @@ document.addEventListener('mousedown', function(event) {
                 boardSelect = temp.playerBoard;
                 isHighlight = true;
             }
+            else {
+                window.alert("Invalid placement! Try again within the grid.")
+            }
         }
         else if ((event.pageX > 1250 && event.pageX < 1440) && (event.pageY > 700 && event.pageY < 785)) {
             if (isHighlight) {
                 Confirm();
             }
+        }
+        else {
+            window.alert("Invalid placement! Try again within the grid.")
         }
     }
     else if(gamePhase == "play"){
