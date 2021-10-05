@@ -37,6 +37,7 @@ Once a player has sunk all of the opponent's ships, they immediatley win.
 
 let canvas;
 let context;
+let sonarIc = {image: ' ', x: 800, y: 250, isDragging: false, isPlaced: false};
 let gamePhase = "setup"; //string that determines what state of the game is displayd {"setup", "place", "play", "end"}
 let playerTurn = 0; //int that determines which player is able to shoot and on which board, changes with each shot. { 1, 0 }
 let shipNum; //int that determines the number of ships to start the game. { 1, 2, 3, 4, 5, 6 }
@@ -292,6 +293,7 @@ function drawGrid()
         }
     }
     else if (gamePhase == "play") {
+		context.drawImage(sonarIc.image, sonarIc.x, sonarIc.y, 100, 100);
         context.fillText("Place your shot", 770, 450);
         context.fillText("------>", 820, 480);
         context.fillText("Fire", 1300, 750);
@@ -382,6 +384,7 @@ function refresh() {
 document.addEventListener("DOMContentLoaded", () => { 
     canvas = document.querySelector("#gameCanvas");
     context = canvas.getContext("2d");
+	sonarIc.image = document.getElementById('sonar');
     refresh();
 
     isHighlight = false;
@@ -573,6 +576,7 @@ document.addEventListener('mousedown', function(event) {
             boardSelect = temp.playerBoard;
             isHighlight = true;
         }
+		
         if ((event.pageX > 1250 && event.pageX < 1440) && (event.pageY > 700 && event.pageY < 785)) {
             if (isHighlight) {
                 Shoot(rowSelect, colSelect);
