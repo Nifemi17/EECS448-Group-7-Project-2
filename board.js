@@ -118,7 +118,7 @@ class Board {
      * @returns {boolean} shows if the shot location is valid
      */
     isValidShot(r, c) {
-        if (this.game[r][c] == ".") {
+        if (this.game[r][c] == "." || this.game[r][c] == "R") {
             return true;
         }
         return false;
@@ -131,6 +131,7 @@ class Board {
      * @returns {boolean} checks if the key has been hit
      */
     isHit(r, c) {
+		console.log("key[r][c]: ", this.key[r][c]);
         if (this.key[r][c] == "X") {
             return true;
         }
@@ -217,6 +218,12 @@ class Board {
             this.key[coord[0]][coord[1]] = shipChar;
         }
     }
+	
+	setGameReveal(r, c) {
+		console.log("got to setGameReveal")
+		this.game[r][c] = "R";
+		console.log(this.game[r][c]);
+	}
 
     /**
      * Changes the coordinate values of an entire ship on the game to the

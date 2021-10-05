@@ -37,7 +37,7 @@ Once a player has sunk all of the opponent's ships, they immediatley win.
 
 let canvas;
 let context;
-let sonarIc = {image: ' ', x: 800, y: 250, isDragging: false, isPlaced: false};
+let sonarIc = {image: ' ', x: 800, y: 250, size: 100, isEnabled: false, isPlaced: false};
 let gamePhase = "setup"; //string that determines what state of the game is displayd {"setup", "place", "play", "end"}
 let playerTurn = 0; //int that determines which player is able to shoot and on which board, changes with each shot. { 1, 0 }
 let shipNum; //int that determines the number of ships to start the game. { 1, 2, 3, 4, 5, 6 }
@@ -293,7 +293,7 @@ function drawGrid()
         }
     }
     else if (gamePhase == "play") {
-		context.drawImage(sonarIc.image, sonarIc.x, sonarIc.y, 100, 100);
+		context.drawImage(sonarIc.image, sonarIc.x, sonarIc.y, sonarIc.size, sonarIc.size);
         context.fillText("Place your shot", 770, 450);
         context.fillText("------>", 820, 480);
         context.fillText("Fire", 1300, 750);
@@ -570,17 +570,58 @@ document.addEventListener('mousedown', function(event) {
     }
     else if(gamePhase == "play"){
         if ((event.pageX > 1000 && event.pageX < 1650) && (event.pageY > 75 && event.pageY < 660)) {
-            let temp = clickCoord(event.pageX, event.pageY);
-            rowSelect = temp.row;
-            colSelect = temp.col;
-            boardSelect = temp.playerBoard;
-            isHighlight = true;
+			let temp = clickCoord(event.pageX, event.pageY);
+			rowSelect = temp.row;
+			colSelect = temp.col;
+			boardSelect = temp.playerBoard;
+			if (sonarIc.isEnabled == false) {
+				isHighlight = true;
+			}
+			
+			else {
+				if (validSonarPlace(rowSelect, colSelect)) {
+					sonarIc.isPlaced = true;
+					sonarIc.x = (1000 + (colSelect * 65));
+					sonarIc.y = (75 + (rowSelect * 65));
+					sonarIc.size = 65;
+				}
+			}	
         }
 		
+		if ((event.pageX > 800 && event.pageX < (900)) && (event.pageY > 250 && event.pageY < (350))) {
+			if (sonarIc.isEnabled == false) {
+				sonarIc.isEnabled = true;
+				isHighlight = false;
+			}
+			
+			else {
+				sonarIc.isEnabled = false;
+				sonarIc.x = 800;
+				sonarIc.y = 250;
+				sonarIc.size = 100;
+				sonarIc.isPlaced = false;
+			}
+		}
+			
         if ((event.pageX > 1250 && event.pageX < 1440) && (event.pageY > 700 && event.pageY < 785)) {
             if (isHighlight) {
                 Shoot(rowSelect, colSelect);
             }
+			
+			if (sonarIc.isPlaced) {
+				for (let i = rowSelect - 1; i < rowSelect + 2; i++) {
+					for (let j = colSelect - 1; j < colSelect + 2; j++) {
+						if (revealShips(i, j, playerBoards[op(playerTurn)])) {
+							playerBoards[playerTurn].setGameReveal(i, j);
+						}
+					}
+				}
+			sonarIc.isEnabled = false;
+			sonarIc.x = 800;
+			sonarIc.y = 250;
+			sonarIc.size = 100;
+			sonarIc.isPlaced = false;
+			}
         }
     }
     else if(gamePhase == "intermission"){
