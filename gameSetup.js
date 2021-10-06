@@ -13,6 +13,81 @@ chosen then each player gets a single 1x1 ship.
 /**
  * draws the start menu for ship selection
  */
+ function gameIntro()
+ {
+         context.font = "60pt Georgia";
+         context.fillText("BATTLESHIP", 1000, 500);
+         context.fillStyle = "black";
+         context.font = "30pt Georgia";
+         context.fillText("Would you like a second player or play with the computer", 800, 600)
+         context.beginPath();
+         context.moveTo(1080, 650);
+         context.lineTo(1250, 650);
+         context.lineTo(1250, 700);
+         context.lineTo(1080, 700);
+         context.lineTo(1080, 650);
+         context.strokeStyle = 'black';
+         context.lineWidth = 2;
+         context.stroke();
+         context.closePath();
+         context.fillText("Player 2", 1090, 685);
+         context.beginPath();
+         context.moveTo(1300, 650);
+         context.lineTo(1500, 650);
+         context.lineTo(1500, 700);
+         context.lineTo(1300, 700);
+         context.lineTo(1300, 650);
+         context.strokeStyle = 'black';
+         context.lineWidth = 2;
+         context.stroke();
+         context.closePath();
+         context.fillText("Computer", 1310, 685);
+         context.beginPath();
+         context.moveTo(1300, 750);
+         context.lineTo(1500, 750);
+         context.lineTo(1500, 800);
+         context.lineTo(1300, 800);
+         context.lineTo(1300, 750);
+         context.strokeStyle = 'black';
+         context.lineWidth = 2;
+         context.stroke();
+         context.closePath();
+         context.fillText("Select your difficulty level", 1100, 735);
+         context.beginPath();
+         context.moveTo(1080, 750);
+         context.lineTo(1250, 750);
+         context.lineTo(1250, 800);
+         context.lineTo(1080, 800);
+         context.lineTo(1080, 750);
+         context.strokeStyle = 'black';
+         context.lineWidth = 2;
+         context.stroke();
+         context.closePath();
+         context.fillText("Easy", 1090, 785);
+         context.beginPath();
+         context.moveTo(1300, 750);
+         context.lineTo(1500, 750);
+         context.lineTo(1500, 800);
+         context.lineTo(1300, 800);
+         context.lineTo(1300, 750);
+         context.strokeStyle = 'black';
+         context.lineWidth = 2;
+         context.stroke();
+         context.closePath();
+         context.fillText("Medium", 1310, 785);
+         context.beginPath();
+         context.moveTo(1550, 750);
+         context.lineTo(1750, 750);
+         context.lineTo(1750, 800);
+         context.lineTo(1550, 800);
+         context.lineTo(1550, 750);
+         context.strokeStyle = 'black';
+         context.lineWidth = 2;
+         context.stroke();
+         context.closePath();
+         context.fillText("Hard", 1350, 785);
+                
+ }
  function gameSetup()
  {
      context.font = "30pt Georgia";
