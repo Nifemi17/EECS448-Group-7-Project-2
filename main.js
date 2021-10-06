@@ -37,7 +37,7 @@ Once a player has sunk all of the opponent's ships, they immediatley win.
 
 let canvas;
 let context;
-let gamePhase = "setup"; //string that determines what state of the game is displayd {"setup", "place", "play", "end"}
+let gamePhase = "intro"; //string that determines what state of the game is displayd {"setup", "place", "play", "end"}
 let playerTurn = 0; //int that determines which player is able to shoot and on which board, changes with each shot. { 1, 0 }
 let shipNum; //int that determines the number of ships to start the game. { 1, 2, 3, 4, 5, 6 }
 let playerBoards = []; //an array of board classes. { 0 (player 1), 1 (player 2)}
@@ -290,6 +290,10 @@ function refresh() {
     context.clearRect(0,0,canvas.width,canvas.height)
     context.font = "18pt Georgia";
     context.fillStyle = "black";
+    if( gamePhase == 'intro')
+    {
+        gameIntro();
+    }
     if(gamePhase == 'setup'){
         gameSetup();
     }
