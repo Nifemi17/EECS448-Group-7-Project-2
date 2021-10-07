@@ -27,3 +27,10 @@ Oct-4
 Oct-5
   -Anna:         3:00
   -Yuri:         1:14
+
+Oct-6
+  -Team Meeting: 2:20
+  -Yuri:         2:46
+
+Oct-7
+  -Yuri:         4:08
