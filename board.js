@@ -118,7 +118,7 @@ class Board {
      * @returns {boolean} shows if the shot location is valid
      */
     isValidShot(r, c) {
-        if (this.game[r][c] == "." || this.game[r][c] == "R") {
+        if (this.game[r][c] == "." || this.game[r][c] == "R" || this.game[r][c] == "W") {
             return true;
         }
         return false;
@@ -219,10 +219,30 @@ class Board {
         }
     }
 	
-	setGameReveal(r, c) {
-		console.log("got to setGameReveal")
+	/**
+	* @pre a unhit part of a ship is position at row r, column c of the game board array.
+	* @pre postion at row r, column c is within sonar range
+	* @post value at row r, column c of game board array is changed to 'R'
+	* @param r row of position on the board
+	* @param c column of position on the board
+	*/
+	revealShip(r, c) {
+		console.log("got to revealShip");
 		this.game[r][c] = "R";
 		console.log(this.game[r][c]);
+	}
+	
+	/**
+	* @pre nothing in the position at row r, column c of the game board array.
+	* @pre postion at row r, column c is within sonar range
+	* @post value at row r, column c of game board array is changed to 'W'
+	* @param r row of position on the board
+	* @param c column of position on the board
+	*/
+	revealEmpty(r, c) {
+		console.log("got to revealEmpty");
+		this.game[r][c] = "W";
+		console.log("game[r][c]: ", this.game[r][c]);
 	}
 
     /**

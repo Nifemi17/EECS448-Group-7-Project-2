@@ -516,10 +516,13 @@ document.addEventListener('mousedown', function(event) {
             }
 			
 			if (sonarIc.isPlaced) {
-				for (let i = rowSelect - 1; i < rowSelect + 2; i++) {
-					for (let j = colSelect - 1; j < colSelect + 2; j++) {
-						if (revealShips(i, j, playerBoards[op(playerTurn)])) {
-							playerBoards[playerTurn].setGameReveal(i, j);
+				for (let r = rowSelect - 1; r < rowSelect + 2; r++) {
+					for (let c = colSelect - 1; c < colSelect + 2; c++) {
+						if (revealShips(r, c, playerBoards[op(playerTurn)])) {
+							playerBoards[playerTurn].revealShip(r, c);
+						}
+						else {
+							playerBoards[playerTurn].revealEmpty(r, c);
 						}
 					}
 				}

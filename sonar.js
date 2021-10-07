@@ -5,14 +5,14 @@
 /**
 *  Stores all data used when managing the sonar ability.
 */
-let sonarIc = {image: ' ', x: 800, y: 125, size: 100, isEnabled: false, isPlaced: false, isDragging: false};
+let sonarIc = {image: ' ', x: 800, y: 125, size: 100, isEnabled: false, isPlaced: false};
 
 
 /**
-* draws sonar guidelines
+* @pre gamePhase == "play"
+* @post Instructions for sonar ability are drawn on canvas
 */
-
-function drawSonarIns(context) {
+function drawSonarIns() {
 	context.fillText("Sonar:", 625, 700);
 	context.fillText("reveals the enemy ship positions within a 3x3 grid", 625, 725);
 	context.fillText("when enabled, click on board to place and", 625, 775);
@@ -21,10 +21,10 @@ function drawSonarIns(context) {
 	context.stroke;
 }
 /**
-* draws the sonar icon image as a canvas element
-* @param context canvas context from main.js
+* @pre gamePhase == "play"
+* @post sonar icon (if enabled) and toggle button are drawn on canvas
 */
-function drawSonar(context) {
+function drawSonar() {
 	drawBox();
 	
 	if (sonarIc.isEnabled) {
@@ -46,7 +46,10 @@ function drawSonar(context) {
 }
 
 /**
-*
+* @pre sonarIc.isEnabled == true
+* @post sonar icon is enlarged and drawn on board, sonarIc.isPlaced = true
+* @param centerR the row through the center of the placed icon
+* @param centerC the column through the center of the placed icon
 */
 function placeSonar(centerR, centerC) {
 	if (centerC > 0 && centerC < 9 && centerR > 0 && centerR < 8)
@@ -63,6 +66,10 @@ function placeSonar(centerR, centerC) {
 	}
 }
 
+/**
+* @pre sonar icon placed on board
+* @post position 
+*/
 function revealShips(r, c, tBoard) {
 	console.log("c: ", c, "r: ", r);
 	if (tBoard.isHit(r, c)) {
