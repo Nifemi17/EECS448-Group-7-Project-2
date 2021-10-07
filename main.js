@@ -68,6 +68,7 @@ function gamePlay()
 {
     drawGrid();
     fillGrid(playerTurn);
+	drawSonarIns(context);
 	drawSonar(context);
 }
 
