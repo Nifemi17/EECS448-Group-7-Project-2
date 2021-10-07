@@ -492,10 +492,6 @@ document.addEventListener('mousedown', function(event) {
 			boardSelect = temp.playerBoard;
 			if (!sonarIc.isEnabled) {
 				isHighlight = true;
-			}
-			
-			else {
-				placeSonar(rowSelect, colSelect);
 			}	
         }
 		
@@ -507,6 +503,13 @@ document.addEventListener('mousedown', function(event) {
 			
 			else {
 				resetSonar();
+			}
+		}
+		
+		if ((event.pageX > sonarIc.x && event.pageX < sonarIc.x + sonarIc.size) && (event.pageY > sonarIc.y && event.pageY < sonarIc.y + sonarIc.size)) {
+			if (sonarIc.isEnabled == true) {
+				sonarIc.isDragging = true;
+				console.log ("isDragging: ", sonarIc.isDragging);
 			}
 		}
 			
@@ -544,4 +547,26 @@ document.addEventListener('mousedown', function(event) {
             }
 	}
     }
+})
+
+document.addEventListener('mousemove', function (event) {
+	if (sonarIc.isDragging == true) {
+		console.log (event.pageX, event.pageY);
+		sonarIc.x = event.pageX - (sonarIc.size/2);
+		sonarIc.y = event.pageY - (sonarIc.size/2);
+	}
+})
+
+document.addEventListener('mouseup', function(event) {
+	if (sonarIc.isDragging == true) {
+		let temp = clickCoord(event.pageX, event.pageY);
+		rowSelect = temp.row;
+		colSelect = temp.col;
+		boardSelect = temp.playerBoard;
+		
+		console.log("boardSelect: ", boardSelect);
+		sonarIc.isDragging = false;
+		console.log("isDragging: ", sonarIc.isDragging);
+		placeSonar(rowSelect, colSelect, boardSelect);	
+	}
 })
