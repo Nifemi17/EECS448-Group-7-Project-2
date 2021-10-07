@@ -226,9 +226,11 @@ class Board {
 	* @param r row of position on the board
 	* @param c column of position on the board
 	*/
-	revealShip(r, c) {
+	revealShipPos(r, c) {
 		console.log("got to revealShip");
-		this.game[r][c] = "R";
+		if (this.game[r][c] == ".") {
+			this.game[r][c] = "R";
+		}
 		console.log(this.game[r][c]);
 	}
 	
@@ -239,9 +241,11 @@ class Board {
 	* @param r row of position on the board
 	* @param c column of position on the board
 	*/
-	revealEmpty(r, c) {
+	revealEmptyPos(r, c) {
 		console.log("got to revealEmpty");
-		this.game[r][c] = "W";
+		if (this.game[r][c] == ".") {
+			this.game[r][c] = "W";
+		}
 		console.log("game[r][c]: ", this.game[r][c]);
 	}
 

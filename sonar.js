@@ -3,9 +3,18 @@
 */
 
 /**
-*  Stores all data used when managing the sonar ability.
+*  Stores all data used when managing the sonar ability and icon.
 */
-let sonarIc = {image: ' ', x: 800, y: 125, prevX: 800, prevY: 125, size: 100, isEnabled: false, isPlaced: false, isDragging: false};
+let sonarIc = {
+	image: ' ', //stores the link to the sonar icon image
+	x: 800, //x position to draw the sonar icon
+	y: 125, //y position to draw the sonar icon
+	prevX: 800, //previous x position before the sonar icon is clicked and dragged
+	prevY: 125, //previous y position before the sonar icon is clicked and dragged
+	size: 100, //size of the sonar icon
+	isEnabled: false, //tracks if the sonar ability is enabled
+	isPlaced: false, //tracks if the sonar icon has been properly placed 
+	isDragging: false}; //tracks if the sonar icon is currently being dragged
 
 
 /**
@@ -70,17 +79,26 @@ function placeSonar(centerR, centerC, boardSelect) {
 }
 
 /**
-* @pre sonar icon placed on board
-* @post position 
+* @pre sonar icon placed on board and fire button is pressed
+* @return true if position at row r, column c in tBoard's key array holds an unhit ship, false otherwise
+* @param r the row of the position to be checked
+* @param c the column of the position to be checked
+* @param plBoard the current player's board object
+* @param opBoard the opponent's board object
 */
-function revealShips(r, c, tBoard) {
+function revealShips(r, c, opBoard, plBoard) {
 	console.log("c: ", c, "r: ", r);
-	if (tBoard.isHit(r, c)) {
-		return true;
+	if (opBoard.isHit(r, c)) {
+		plBoard.revealShipPos(r, c);
 	}
-	return false;
+	else {
+		plBoard.revealEmptyPos(r, c);
+	}
 }
 
+/**
+* resets sonarIc's variables to their initial values when the sonar ability is disabled
+*/
 function resetSonar() {
 	sonarIc.isEnabled = false;
 	sonarIc.x = 800;
@@ -91,6 +109,10 @@ function resetSonar() {
 	sonarIc.isPlaced = false;
 }
 
+/**
+* @pre after dragging the sonar icon, mouseup event sensed outside of the valid sonar placement boundary
+* @post sonar icon returned to previous position before being dragged
+*/
 function cancelSonarMove() {
 	let tempX = sonarIc.prevX;
 	let tempY = sonarIc.prevY;
@@ -99,6 +121,9 @@ function cancelSonarMove() {
 	sonarIc.y = tempY;
 }
 
+/**
+* draws the box around the enable/disable sonar button 
+*/
 function drawBox() {
 	context.beginPath();
 	context.moveTo(800, 250);

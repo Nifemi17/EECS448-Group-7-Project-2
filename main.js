@@ -594,14 +594,12 @@ document.addEventListener('mousedown', function(event) {
             }
 			
 			if (sonarIc.isPlaced) {
+				let opBoard = playerBoards[op(playerTurn)];
+				let plBoard = playerBoards[playerTurn];
+				
 				for (let r = rowSelect - 1; r < rowSelect + 2; r++) {
 					for (let c = colSelect - 1; c < colSelect + 2; c++) {
-						if (revealShips(r, c, playerBoards[op(playerTurn)])) {
-							playerBoards[playerTurn].revealShip(r, c);
-						}
-						else {
-							playerBoards[playerTurn].revealEmpty(r, c);
-						}
+						revealShips(r, c, opBoard, plBoard);
 					}
 				}
 				resetSonar();
@@ -624,14 +622,20 @@ document.addEventListener('mousedown', function(event) {
     }
 })
 
+/**
+* tracks the position of the cursor when dragging the sonar icon image
+*/
 document.addEventListener('mousemove', function (event) {
 	if (sonarIc.isDragging == true) {
-		console.log (event.pageX, event.pageY);
 		sonarIc.x = event.pageX - (sonarIc.size/2);
 		sonarIc.y = event.pageY - (sonarIc.size/2);
 	}
 })
 
+/*
+* reads the position of a dragged image when the mouse button is released, then sends the position to
+* placeSonar to verify valid sonar placement
+*/
 document.addEventListener('mouseup', function(event) {
 	if (sonarIc.isDragging == true) {
 		let temp = clickCoord(event.pageX, event.pageY);
