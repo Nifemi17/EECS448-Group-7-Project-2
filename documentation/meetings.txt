@@ -22,4 +22,20 @@ Sep-30 6:30pm - 7:54pm
 	-Anna: change ship number selections into buttons on canvas instead of keyboard input.
 	-Rudro: make the game fit inside the browser window.
 	-Yuri: write/send custom proposal to GTA, research Requirement Engineering Artifact and work-hours estimate methods.
-  -NEXT MEETING: Sunday
+  -NEXT MEETING: Sunday 10/3
+
+Oct-3 4:00pm - 5:00pm
+  -All attended.
+  -Took turns updating everyone with their individual progress, then disseminated new tasks.
+  -TASKS:
+    -Rudro: Email GTA about screen fit, work on AI functions.
+	-Nifemi: Handle ship number and AI difficulty selections, work on screen background images
+	-Anna: Work on ship number and AI difficulty selections, start click and drag after
+	-Michael: Work on AI functions
+	-Yuri, Work on Sonar functions, work hours estimate.
+	
+Oct-4 7:30pm - 10:30pm
+  -All attended, Yuri left after 9:57pm
+  -Continued working on various tasks.
+    
+

@@ -1,0 +1,42 @@
+For this project, I decided to use function point analysis to estimate the amount of hours needed
+to complete the project, based on the lecture slides for EECS 448.
+
+I started with calculating the function points for project 1. Then I divided project 1's total work 
+hours by its function points to find that our group has a rate of 2.41 work hours per function point.
+After that, I calculated the function points for our custom additions with the following value assignments:
+
+UFP 
+  -inputs
+    -click and drag for ship placement: 3 (complexity)
+    -special ability activation: 3
+    -click and drag for sonar placement: 3
+	-AI difficulty selection: 3
+	
+  -outputs
+    -background images: 3
+	-ship, hit/miss, sonar images: 3
+	-sonar reveal: 3
+	-background music, sounds: 3
+	
+  -I omitted inquiries, master files, and interfaces as there weren't any large, internal or external databases 
+  that needed to be communicated with.
+	
+  -UFP total = 25
+  
+DI
+  -technical factors (that aren't 0)
+    -end-user efficiency: 2
+	-ease of operation: 2
+	
+  -DI total = 4
+  
+TCF = .65 + .01(4) = .69
+
+FP = 25 * .69 = 17.25
+
+Work Hours = 17.25 * 2.41 = 41.57 hours
+
+I estimate that project 2 will take approximately 41.57 work hours to complete.
+   
+  
+  

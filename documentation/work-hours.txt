@@ -16,11 +16,14 @@ Oct-2
 
 Oct-3
   -Rudro       : 1:30
+  -Team Meeting: 1:00
   
 Oct-4
-  -Team Meeting: 1:00
-  -Yuri:         3:00
+  -Team Meeting: 3:00
+  -Yuri:         6:10
   -Anna:         2:00
+  -Rudro:        1:00
 
-  Oct-5
+Oct-5
   -Anna:         3:00
+  -Yuri:         1:14
