@@ -13,6 +13,37 @@ chosen then each player gets a single 1x1 ship.
 /**
  * draws the start menu for ship selection
  */
+ function gameIntro()
+ {
+         context.font = "60pt Georgia";
+         context.fillText("BATTLESHIP", (width/2) - 188, (height/2)- 129);
+         context.fillStyle = "black";
+         context.font = "30pt Georgia";
+         context.fillText("Would you like a second player or play with the computer", (width/2)-400, (height/2)-30)
+         context.beginPath();
+         context.moveTo((width/2)-200, (height/2));
+         context.lineTo((width/2), (height/2));
+         context.lineTo((width/2), (height/2)+50);
+         context.lineTo((width/2)-200, (height/2)+50);
+         context.lineTo((width/2)-200, (height/2));
+         context.strokeStyle = 'black';
+         context.lineWidth = 2;
+         context.stroke();
+         context.closePath();
+         context.fillText("Player 2", (width/2)-180, (height/2)+40);
+         context.beginPath();
+         context.moveTo((width/2)+100, (height/2));
+         context.lineTo((width/2)+300, (height/2));
+         context.lineTo((width/2)+300, (height/2)+50);
+         context.lineTo((width/2)+100, (height/2)+50);
+         context.lineTo((width/2)+100, (height/2));
+         context.strokeStyle = 'black';
+         context.lineWidth = 2;
+         context.stroke();
+         context.closePath();
+         context.fillText("Computer", (width/2)+110, (height/2)+40);
+ }
+            
  function gameSetup()
  {
      context.font = "30pt Georgia";
@@ -37,6 +68,47 @@ chosen then each player gets a single 1x1 ship.
      }
  }
 
+ function selection()
+ {
+     context.fillStyle = "black";
+     context.font = "30pt Georgia";
+     context.fillText("Select your difficulty level", (width/2)-180, (height/2)+110 );
+     context.beginPath();
+     context.moveTo((width/2)-250, (height/2)+160);
+     context.lineTo((width/2)-50, (height/2)+160);
+     context.lineTo((width/2)-50, (height/2)+210);
+     context.lineTo((width/2)-250, (height/2)+210);
+     context.lineTo((width/2)-250, (height/2)+160);
+     context.strokeStyle = 'black';
+     context.lineWidth = 2;
+     context.stroke();
+     context.closePath();
+     context.fillText("Easy", (width/2)-240, (height/2)+200);
+     context.beginPath();
+     context.moveTo((width/2)-20, (height/2)+160);
+     context.lineTo((width/2)+180, (height/2)+160);
+     context.lineTo((width/2)+180, (height/2)+210);
+     context.lineTo((width/2)-20, (height/2)+210);
+     context.lineTo((width/2)-20, (height/2)+160);
+     context.strokeStyle = 'black';
+     context.lineWidth = 2;
+     context.stroke();
+     context.closePath();
+     context.fillText("Medium", (width/2) - 10, (height/2)+ 200);
+     context.beginPath();
+     context.moveTo((width/2)+210, (height/2)+160);
+     context.lineTo((width/2)+410, (height/2)+160);
+     context.lineTo((width/2)+410, (height/2)+210);
+     context.lineTo((width/2)+210, (height/2)+210);
+     context.lineTo((width/2)+210, (height/2)+160);
+     context.strokeStyle = 'black';
+     context.lineWidth = 2;
+     context.stroke();
+     context.closePath();
+     context.fillText("Hard", (width/2) +220, (height/2)+200);
+     //gamePhase = "setup";
+ }
+  
 
  /**
  * Takes user input for a number of ships and checks it's valid, then if it is sets the number of ships

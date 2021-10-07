@@ -37,7 +37,7 @@ Once a player has sunk all of the opponent's ships, they immediatley win.
 
 let canvas;
 let context;
-let gamePhase = "setup"; //string that determines what state of the game is displayd {"setup", "place", "play", "end"}
+let gamePhase = "intro"; //string that determines what state of the game is displayd {"setup", "place", "play", "end"}
 let playerTurn = 0; //int that determines which player is able to shoot and on which board, changes with each shot. { 1, 0 }
 let shipNum; //int that determines the number of ships to start the game. { 1, 2, 3, 4, 5, 6 }
 let playerBoards = []; //an array of board classes. { 0 (player 1), 1 (player 2)}
@@ -50,7 +50,8 @@ let curShipIndex; //keeps track of shipIndex for the place phase
 let shotOutcomeText; //Global shot outcome text holder for intermission phase
 let height = window.innerHeight;
 let width = window.innerWidth;
-
+let secondPlayer;
+let difficulty;
 
 /**
  * Calls drawGrid and then fillGrid for the place phase, setting up the game board
@@ -185,12 +186,20 @@ function drawGrid()
 
     if(gamePhase == "place")
     {
-	    if(playerTurn == 0){
+        if (secondPlayer == "Player2")
+        {
+            if(playerTurn == 0)
+            {
 	        context.fillText("Player 1", 810, 425);
-	    }
-	    else if(playerTurn == 1){
+	        }
+	        else if(playerTurn == 1){
 	        context.fillText("Player 2", 810, 425);
-	    }
+	        }
+        }
+        else if (secondPlayer == "computer" )
+        {
+            context.fillText("Player 1", 810, 425);
+        }
         context.fillText("Place your ships", 760, 450);
         context.fillText("<------", 820, 480);
         let temp = "Ship being placed: " + (curShipIndex + 1).toString();
@@ -263,6 +272,8 @@ function drawGrid()
  */
 function fillGrid(player)
 {
+    if(secondPlayer == "Player2")
+    {
     for (let r = 0; r < 9; r++) {
         for (let c = 0; c < 10; c++) {
             if(player == 0){
@@ -274,6 +285,16 @@ function fillGrid(player)
                 context.fillText(playerBoards[player].game[r][c], 1027 + c*65, 110 + r*65);
             }
         }
+    }
+    }
+    if(secondPlayer == "computer")
+    {
+        for (let r = 0; r < 9; r++) {
+            for (let c = 0; c < 10; c++) {
+                    context.fillText(playerBoards[player].key[r][c], 125 + c*65, 110 + r*65);
+                    context.fillText(playerBoards[player].game[r][c], 1027 + c*65, 110 + r*65);
+            }
+        }  
     }
 }
 
@@ -288,9 +309,17 @@ function tick() {
  * Clears the display and changes the game phase to move on to the next one
  */
 function refresh() {
-    context.clearRect(0,0,canvas.width,canvas.height)
+    context.clearRect(0,0,canvas.width,canvas.height);
     context.font = "18pt Georgia";
     context.fillStyle = "black";
+    if( gamePhase == 'intro')
+    {
+        gameIntro();
+    }
+    if( gamePhase == 'selection')
+    {
+        selection();
+    }
     if(gamePhase == 'setup'){
         gameSetup();
     }
@@ -443,7 +472,53 @@ document.addEventListener("keydown", function(event){
 document.addEventListener('mousedown', function(event) {
     console.log(event.pageX, event.pageY);
     //SECTION 1
-    if(gamePhase == "setup"){
+
+    if (gamePhase == "intro")
+    {
+        console.log(gamePhase);
+        if(((width/2)-200) < event.pageX && (width/2) > event.pageX){
+            if((height/2) < event.pageY && ((height/2) + 50) > event.pageY){
+                    secondPlayer = "Player2";
+                    gamePhase = "setup";
+                    //selection();
+            }
+        }
+        if(((width/2)+100) < event.pageX && ((width/2)+300) > event.pageX){
+            if((height/2) < event.pageY && ((height/2) + 50) > event.pageY){
+                    secondPlayer = "computer";
+                    console.log(secondPlayer);
+                   gamePhase = "selection";   
+            }
+        }
+        selection();
+    }
+    else if (gamePhase == "selection")
+    {
+        if(((width/2)-250 < event.pageX && ((width/2)-50) > event.pageX))
+        {
+            if((height/2) < event.pageY && ((height/2) + 50) > event.pageY)
+            {
+                difficulty = "easy";
+            }
+        }
+        if(((width/2)-20) < event.pageX && ((width/2)+180) > event.pageX)
+        {
+            if((height/2) < event.pageY && ((height/2) + 50) > event.pageY)
+            {
+                difficulty = "medium";
+            }
+        }
+        if(((width/2)+210) < event.pageX && ((width/2)+410) > event.pageX)
+        {
+            if((height/2) < event.pageY && ((height/2) + 50) > event.pageY)
+            {
+                difficulty = "hard";
+            }
+        }
+        console.log(difficulty);
+        gamePhase = "setup";
+    }
+    else if(gamePhase == "setup"){
         if(770 < event.pageX && 1056 > event.pageX){
             if(607 < event.pageY && 708 > event.pageY){
                 try {
