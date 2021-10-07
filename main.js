@@ -68,6 +68,7 @@ function gamePlay()
 {
     drawGrid();
     fillGrid(playerTurn);
+	drawSonar(context);
 }
 
 /**
@@ -223,7 +224,6 @@ function drawGrid()
     //WHEN PLAYING
 
     else if (gamePhase == "play") {
-		drawSonar(context);
         context.fillText("Place your shot", 770, 450);
         context.fillText("------>", 820, 480);
         context.fillText("Fire", 1300, 750);
