@@ -87,6 +87,6 @@ function drawBox() {
 	context.lineTo(800, 350);
 	context.closePath();
 	context.strokeStyle = 'red';
-	context.lineWidth = 6;		
+	context.lineWidth = 4;		
 	context.stroke();
 }
