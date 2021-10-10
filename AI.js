@@ -105,26 +105,3 @@ function hardAIShot(userBoard) {
 		}
 	}
 }
-
-function checkAIPlace(row, col) {
-	let dir = playerBoards[playerTurn].ships[curShipIndex].orientation;
-	console.log(dir)
-	
-	if (dir == "H") {
-		if (row >= 0 && row < 9) {
-			if (col >= 0 && col < (10 - curShipIndex)) {
-				return true;
-			}
-		}
-	}
-	
-	else {
-		if (col >= 0 && col < 10) {
-			if (row >= 0 && row < (9 - curShipIndex)) {
-				return true;
-			}
-		}
-	}
-	
-	return false;
-}
