@@ -60,6 +60,7 @@ function gamePlace()
 {
     drawGrid();
     fillGrid(playerTurn);
+    //randomShipPlacementAI();
 }
 
 /**
@@ -78,13 +79,15 @@ function gamePlay()
  */
 function gameIntermission()
 {
-    context.fillText(shotOutcomeText, 750, 350);
-    if(playerTurn == 1){
-        context.fillText("Player 2 Next", 750, 400);
-    }
-    else {
+    if (secondPlayer == "Player2")
+    {
+        context.fillText(shotOutcomeText, 750, 350);
+        if(playerTurn == 1){
+            context.fillText("Player 2 Next", 750, 400);
+        }
+        else {
         context.fillText("Player 1 Next", 750, 400);
-    }
+        }
     context.fillText("Ready", 770, 655);
     context.beginPath();
     context.moveTo(720, 600);
@@ -96,6 +99,29 @@ function gameIntermission()
     context.lineWidth = 2;
     context.stroke();
     context.closePath();
+    }
+    else if(secondPlayer == "computer")
+    {
+        context.fillText(shotOutcomeText, 750, 350);
+        if(playerTurn == 1){
+            //context.fillText("Player 2 Next", 750, 400);
+            console.log("computer went");
+        }
+        else {
+        context.fillText("Player 1 Next", 750, 400);
+        }
+    context.fillText("Ready", 770, 655);
+    context.beginPath();
+    context.moveTo(720, 600);
+    context.lineTo(950, 600);
+    context.lineTo(950, 700);
+    context.lineTo(720, 700);
+    context.lineTo(720, 600);
+    context.strokeStyle = 'black';
+    context.lineWidth = 2;
+    context.stroke();
+    context.closePath();
+    }
 }
 
 /**
@@ -103,6 +129,8 @@ function gameIntermission()
  */
 function gameEnd()
 {
+    if (secondPlayer == "Player2")
+    { 
     //confirm button
     context.beginPath();
     context.moveTo(720, 600);
@@ -124,6 +152,31 @@ function gameEnd()
         //fill the canvas with a win screen for p1
         context.fillText("Player 2 Win!", 750, 400);
     }
+    }
+    else if (secondPlayer == "computer")
+    {
+        context.beginPath();
+        context.moveTo(720, 600);
+        context.lineTo(950, 600);
+        context.lineTo(950, 700);
+        context.lineTo(720, 700);
+        context.lineTo(720, 600);
+        context.strokeStyle = 'black';
+        context.lineWidth = 2;
+        context.stroke();
+        context.closePath();
+        context.fillText("Play Again?", 770, 655);
+    
+        if(playerTurn == 0){
+            //fill the canvas with a win screen for p2
+            context.fillText("Player 1 Wins!", 750, 400);
+        }
+        if(playerTurn == 1){
+            //fill the canvas with a win screen for p1
+            context.fillText("Conputer Wins!", 750, 400);
+        }
+    }
+
 }
 
 
@@ -195,45 +248,90 @@ function drawGrid()
 	        else if(playerTurn == 1){
 	        context.fillText("Player 2", 810, 425);
 	        }
+            context.fillText("Place your ships", 760, 450);
+            context.fillText("<------", 820, 480);
+            let temp = "Ship being placed: " + (curShipIndex + 1).toString();
+            context.fillText(temp, 300, 750);
+            context.fillText("Switch Orientation:", 740, 775);
+            context.fillText("Spacebar", 800, 800);
+            temp = "Orientation: " + playerBoards[playerTurn].ships[curShipIndex].orientation;
+            context.fillText(temp, 775, 750);
+            context.fillText("Confirm", 1300, 750);
+            // Box around Confirm
+            context.beginPath();
+            context.moveTo(1250, 700);
+            context.lineTo(1440, 700);
+            context.lineTo(1440, 785);
+            context.lineTo(1250, 785);
+            context.lineTo(1250, 700);
+            context.stroke();
+            context.closePath();
+            //context.beginPath();
+            if (isHighlight == true)
+            {
+                //console.log("isHighlight:", isHighlight);
+                playerBoards[playerTurn].ships[curShipIndex].setPosition(rowSelect, colSelect);
+                let coords = playerBoards[playerTurn].ships[curShipIndex].getPosition();
+                for (let i = 0; i < curShipIndex + 1; i++) {
+                    var coord = coords[i];
+                    setHighlight(coord[1], coord[0], boardSelect);
+                    //console.log(coord[0]);
+                }
+            }
         }
         else if (secondPlayer == "computer" )
         {
-            context.fillText("Player 1", 810, 425);
-        }
-        context.fillText("Place your ships", 760, 450);
-        context.fillText("<------", 820, 480);
-        let temp = "Ship being placed: " + (curShipIndex + 1).toString();
-        context.fillText(temp, 300, 750);
-	    context.fillText("Switch Orientation:", 740, 775);
-	    context.fillText("Spacebar", 800, 800);
-        temp = "Orientation: " + playerBoards[playerTurn].ships[curShipIndex].orientation;
-        context.fillText(temp, 775, 750);
-        context.fillText("Confirm", 1300, 750);
-        // Box around Confirm
-        context.beginPath();
-        context.moveTo(1250, 700);
-        context.lineTo(1440, 700);
-        context.lineTo(1440, 785);
-        context.lineTo(1250, 785);
-        context.lineTo(1250, 700);
-        context.stroke();
-        context.closePath();
-        //context.beginPath();
-        if (isHighlight == true)
-        {
-            //console.log("isHighlight:", isHighlight);
-            playerBoards[playerTurn].ships[curShipIndex].setPosition(rowSelect, colSelect);
-            let coords = playerBoards[playerTurn].ships[curShipIndex].getPosition();
-            for (let i = 0; i < curShipIndex + 1; i++) {
-                coord = coords[i];
-                setHighlight(coord[1], coord[0], boardSelect);
+            if(playerTurn == 0)
+            {
+                context.fillText("Player 1", 810, 425);
+                context.fillText("Place your ships", 760, 450);
+                context.fillText("<------", 820, 480);
+                let temp = "Ship being placed: " + (curShipIndex + 1).toString();
+                context.fillText(temp, 300, 750);
+                context.fillText("Switch Orientation:", 740, 775);
+                context.fillText("Spacebar", 800, 800);
+                temp = "Orientation: " + playerBoards[playerTurn].ships[curShipIndex].orientation;
+                context.fillText(temp, 775, 750);
+                context.fillText("Confirm", 1300, 750);
+            // Box around Confirm
+                context.beginPath();
+                context.moveTo(1250, 700);
+                context.lineTo(1440, 700);
+                context.lineTo(1440, 785);
+                context.lineTo(1250, 785);
+                context.lineTo(1250, 700);
+                context.stroke();
+                context.closePath();
+            //context.beginPath();
+                if (isHighlight == true)
+                {
+                //console.log("isHighlight:", isHighlight);
+                playerBoards[playerTurn].ships[curShipIndex].setPosition(rowSelect, colSelect);
+                let coords = playerBoards[playerTurn].ships[curShipIndex].getPosition();
+                for (let i = 0; i < curShipIndex + 1; i++) {
+                    coord = coords[i];
+                    setHighlight(coord[1], coord[0], boardSelect);
+                }
+                }
+            }
+            else if(playerTurn == 1)
+            {
+                console.log("Computer sets");
+                randomShipPlacementAI();
+                gamePhase = "play";
             }
         }
-    }
+        
+    }  
+
+
+
 
     //WHEN PLAYING
 
-    else if (gamePhase == "play") {
+    else if (gamePhase == "play") 
+    {
+        
         context.fillText("Place your shot", 770, 450);
         context.fillText("------>", 820, 480);
         context.fillText("Fire", 1300, 750);
@@ -243,29 +341,62 @@ function drawGrid()
 	    context.fillText("0 = hit on the enemy board", 100, 775);
 	    context.fillText("# = miss on the enemy board", 100, 800);
 	    context.fillText("number = size of a ship after it's sunk", 100, 825);
-	    if(playerTurn == 0){
-	        context.fillText("Player 1", 810, 425);
-	    }
-	    else if(playerTurn == 1){
-	        context.fillText("Player 2", 810, 425);
-	    }
-        // Box around Confirm
-        context.beginPath();
-        context.moveTo(1250, 700);
-        context.lineTo(1400, 700);
-        context.lineTo(1400, 785);
-        context.lineTo(1250, 785);
-        context.lineTo(1250, 700);
-        context.stroke();
-        context.closePath();
-        if (isHighlight) {
+        if (secondPlayer == "Player2")
+        {
+	        if(playerTurn == 0){
+	            context.fillText("Player 1", 810, 425);
+	        }
+	        else if(playerTurn == 1){
+	            context.fillText("Player 2", 810, 425);
+	        }
+            context.beginPath();
+            context.moveTo(1250, 700);
+            context.lineTo(1400, 700);
+            context.lineTo(1400, 785);
+            context.lineTo(1250, 785);
+            context.lineTo(1250, 700);
+            context.stroke();
+            context.closePath();
+            if (isHighlight) {
             console.log("Phase: play; isHighlight: ", isHighlight);
             setHighlight(colSelect, rowSelect, boardSelect);
+            }
         }
+        else if(secondPlayer == "computer")
+        {
+            if(playerTurn == 0){
+	            context.fillText("Player 1", 810, 425);
+                context.beginPath();
+            context.moveTo(1250, 700);
+            context.lineTo(1400, 700);
+            context.lineTo(1400, 785);
+            context.lineTo(1250, 785);
+            context.lineTo(1250, 700);
+            context.stroke();
+            context.closePath();
+            if (isHighlight) {
+            console.log("Phase: play; isHighlight: ", isHighlight);
+            setHighlight(colSelect, rowSelect, boardSelect);
+            }
+	        }
+	        else if(playerTurn == 1){
+	            //context.fillText("Computer", 810, 425);
+                if(difficulty == "easy")
+                {
+                    easyAIShot(playerBoards[1]);
+                }
+                else if(difficulty == "medium")
+                {}
+                else if(difficulty == "hard")
+                {}
+	        }
+        }
+        // Box around Confirm
+        
+        
     }
 
 }
-
 /**
  * Fills up the grid with up-to-date indicators for the spaces
  * @param {number} player shows whose turn it is
@@ -287,12 +418,13 @@ function fillGrid(player)
         }
     }
     }
-    if(secondPlayer == "computer")
+   else if(secondPlayer == "computer")
     {
         for (let r = 0; r < 9; r++) {
             for (let c = 0; c < 10; c++) {
                     context.fillText(playerBoards[player].key[r][c], 125 + c*65, 110 + r*65);
                     context.fillText(playerBoards[player].game[r][c], 1027 + c*65, 110 + r*65);
+                    //context.fillText("helloword,", 125 + c*65, 110 + r*65);
             }
         }  
     }
@@ -496,31 +628,33 @@ document.addEventListener('mousedown', function(event) {
     {
         if(((width/2)-250 < event.pageX && ((width/2)-50) > event.pageX))
         {
-            if((height/2) < event.pageY && ((height/2) + 50) > event.pageY)
+            if((height/2)+160 < event.pageY && ((height/2) + 210) > event.pageY)
             {
                 difficulty = "easy";
+                gamePhase = "setup";
             }
         }
         if(((width/2)-20) < event.pageX && ((width/2)+180) > event.pageX)
         {
-            if((height/2) < event.pageY && ((height/2) + 50) > event.pageY)
+            if((height/2)+160 < event.pageY && ((height/2) + 210) > event.pageY)
             {
                 difficulty = "medium";
+                gamePhase = "setup";
             }
         }
         if(((width/2)+210) < event.pageX && ((width/2)+410) > event.pageX)
         {
-            if((height/2) < event.pageY && ((height/2) + 50) > event.pageY)
+            if((height/2)+160 < event.pageY && ((height/2) + 210) > event.pageY)
             {
                 difficulty = "hard";
+                gamePhase = "setup";
             }
         }
         console.log(difficulty);
-        gamePhase = "setup";
     }
     else if(gamePhase == "setup"){
-        if(770 < event.pageX && 1056 > event.pageX){
-            if(607 < event.pageY && 708 > event.pageY){
+        if((width/2) -140 < event.pageX && (width/2)+140 > event.pageX){
+            if(600 < event.pageY && 700 > event.pageY){
                 try {
                     setShipNum(userShips);
                     playerBoards[0] = new Board(shipNum);
