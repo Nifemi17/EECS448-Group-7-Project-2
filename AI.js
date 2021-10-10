@@ -55,27 +55,35 @@ function easyAIShot(userBoard) {
 * @param None
 */
 function randomShipPlacementAI() {
-    let row1;
-    let col1;
-	/**temp = getRandomInt(6)
-		if(temp % 2 == 0 )
-		{
-			orient = 'V';
+	let row = 0;
+	let col = 0;
+
+	do {
+		let dir = playerBoards[playerTurn].ships[curShipIndex].orientation;
+		//Horizontal placement
+		if (getRandomInt(2) == 0) {
+			if (dir != "H") {
+				playerBoards[playerTurn].ships[curShipIndex].switchOrientation();
+			}
+			row = getRandomInt(9);
+			col = getRandomInt(10 - curShipIndex);
 		}
-		else
-		{
-			orient = 'H';
+	
+		//Vertical placement
+		else {
+			if (dir != "V") {
+				playerBoards[playerTurn].ships[curShipIndex].switchOrientation();
+			}
+			row = getRandomInt(9 - curShipIndex);
+			col = getRandomInt(10);
 		}
-		canSwitchOrientation(row1,col1,)*/ 
-    row1 = getRandomIntforRow(1, 10);
-    col1 = getRandomIntInclusiveForCol(1, 10);
-		if (isValidShipCoord(row1, col1, curShipIndex + 1, playerBoards[playerTurn].ships[curShipIndex].orientation))
-		{
-			playerBoards[playerTurn].ships[curShipIndex].setPosition(row1, col1);
-			//setShipNum(curShipIndex);
-			
-		}
-		console.log(row1,col1);
+		console.log("row: ", row, "col: ", col, "dir: ", dir, "length: ", curShipIndex + 1);
+	} while (!isValidShipCoord(row, col, curShipIndex + 1, playerBoards[playerTurn].ships[curShipIndex].orientation));
+
+	console.log("got here");
+	placeShipPic(row, col);
+	playerBoards[playerTurn].ships[curShipIndex].setPosition(row, col);
+	Confirm();
 }
 
 /*
@@ -96,4 +104,27 @@ function hardAIShot(userBoard) {
 			}
 		}
 	}
+}
+
+function checkAIPlace(row, col) {
+	let dir = playerBoards[playerTurn].ships[curShipIndex].orientation;
+	console.log(dir)
+	
+	if (dir == "H") {
+		if (row >= 0 && row < 9) {
+			if (col >= 0 && col < (10 - curShipIndex)) {
+				return true;
+			}
+		}
+	}
+	
+	else {
+		if (col >= 0 && col < 10) {
+			if (row >= 0 && row < (9 - curShipIndex)) {
+				return true;
+			}
+		}
+	}
+	
+	return false;
 }
