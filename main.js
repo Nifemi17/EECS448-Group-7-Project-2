@@ -60,12 +60,8 @@ function gamePlace()
 {
 	drawGrid();
     fillGrid(playerTurn);
-<<<<<<< HEAD
     //randomShipPlacementAI();
-||||||| 215906c
-=======
 	drawShips();
->>>>>>> 5dd88e91cee7506f912f0c697150d3a0ca18b323
 }
 
 /**
