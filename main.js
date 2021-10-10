@@ -35,6 +35,7 @@ Once a player has sunk all of the opponent's ships, they immediatley win.
 ----------------------------------------------------------------------------------
 */
 
+
 let canvas;
 let context;
 let gamePhase = "intro"; //string that determines what state of the game is displayd {"setup", "place", "play", "end"}
