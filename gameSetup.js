@@ -134,6 +134,7 @@ function setShipNum(n){
     console.log("Hello confirm!");
     if (playerBoards[playerTurn].isValidSetShip(curShipIndex)) {
         playerBoards[playerTurn].setShip(curShipIndex);
+		playerBoards[playerTurn].ships[curShipIndex].setImage();
         curShipIndex--;
 
         if (curShipIndex < 0) {

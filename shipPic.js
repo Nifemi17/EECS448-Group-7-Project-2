@@ -6,7 +6,6 @@ let shipIc = {
 	prevY: 60, //previous y position before the sonar icon is clicked and dragged
 	width: 65,
 	height: 140, //size of the sonar icon
-	//size: 100,
 	isPlaced: false, //tracks if the sonar icon has been properly placed 
 	isDragging: false
     };
@@ -24,12 +23,12 @@ function drawShips() {
 		}
 	}
 	
-    if(gamePhase == "place") {
+    if(gamePhase == "place") {	
 		context.drawImage(shipIc.image, shipIc.x, shipIc.y, shipIc.width, shipIc.height);
 		context.fillStyle = "black";
 		context.font = "12pt Georgia";
-		context.fillText("Click and drag", 800, 205);
-		context.fillText("to place ship", 805, 225);
+		context.fillText("Click and drag", 800, 40);
+		context.fillText("to place ship", 805, 60);
 	}
 	
 	else if (gamePhase == "play") {
@@ -47,12 +46,7 @@ function placeShipPic(centerR, centerC) {
     shipIc.prevX = shipIc.x;
 	shipIc.prevY = shipIc.y;
 	
-
     shipIc.isPlaced = true;
-	shipIc.height = 65;
-	shipIc.width = 65+((curShipIndex)*65);
-		
-	playerBoards[playerTurn].ships[curShipIndex].setImage();
 }
 
 /**
@@ -60,10 +54,8 @@ function placeShipPic(centerR, centerC) {
 * @post sonar icon returned to previous position before being dragged
 */
 function cancelShipMove() {
-	console.log(shipIc.prevX, shipIc.prevY)
 	let tempX = shipIc.prevX;
 	let tempY = shipIc.prevY;
-	console.log(shipIc.prevX, shipIc.prevY);
 	shipIc.x = tempX;
 	shipIc.y = tempY;
 }
@@ -74,25 +66,19 @@ function resetShip() {
 	shipIc.y = 60;
 	shipIc.prevX = 820;
 	shipIc.prevY = 60;
-	shipIc.height = 140;
+	shipIc.height = 65 + curShipIndex*65;
 	shipIc.width = 65;
 	shipIc.isPlaced = false;
 	shipIc.isDragging = false;
 }
 
-function eraseShip() {
-	shipIc.width = 0;
-}
-
 function switchShipV() {
     shipIc.height = 65+((curShipIndex)*65);
     shipIc.width = 65;
-	playerBoards[playerTurn].ships[curShipIndex].setImage();
 }
 
 function switchShipH() {
     shipIc.width = 65+((curShipIndex)*65);
     shipIc.height = 65;
-	playerBoards[playerTurn].ships[curShipIndex].setImage();
 }
 

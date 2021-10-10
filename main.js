@@ -536,6 +536,7 @@ document.addEventListener('mousedown', function(event) {
                     gamePhase = "place";
                     curShipIndex = shipNum - 1;
                     isHighlight = false;
+					resetShip();
                     }
                 catch(err){
                     alert("Error: " + err + " .");
@@ -563,6 +564,7 @@ document.addEventListener('mousedown', function(event) {
         if ((event.pageX > shipIc.x && event.pageX < shipIc.x + shipIc.width) && (event.pageY > shipIc.y && event.pageY < shipIc.y + shipIc.height)) {
             shipIc.isDragging = true;
 			console.log ("isDragging: ", shipIc.isDragging);
+			console.log (shipIc);
         }
         else if ((event.pageX > 1250 && event.pageX < 1440) && (event.pageY > 700 && event.pageY < 785)) {
             if (isHighlight) {
@@ -649,8 +651,8 @@ document.addEventListener('mousemove', function (event) {
 		sonarIc.y = event.pageY - (sonarIc.size/2);
 	}
     else if (shipIc.isDragging == true) {
-		shipIc.x = event.pageX - (shipIc.width/2);
-		shipIc.y = event.pageY - (shipIc.height/2);
+		shipIc.x = event.pageX - 32;
+		shipIc.y = event.pageY - 32;
 	}
 })
 

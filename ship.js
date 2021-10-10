@@ -5,7 +5,7 @@ class Ship {
     constructor(length) {
         this.length = length;
         this.HP = length;
-        this.orientation = "H"; // Default Horizontal
+        this.orientation = "V"; // Default Horizontal
 		this.shipImage = {
 			image: ' ', //stores the link to the sonar icon image
 			x: 0, //x position to draw the sonar icon
