@@ -334,7 +334,7 @@ function drawGrid()
             }
         }
         
-    }  
+      
 
 
 
@@ -402,7 +402,9 @@ function drawGrid()
                     mediumAI(ai.nextShot, playerBoards[0]);
                 }
                 else if(difficulty == "hard")
-                {}
+                {
+                    hardAIShot(playerBoards[0])
+                }
 	        }
         }
         // Box around Confirm
