@@ -2,8 +2,8 @@ let shipIc = {
 	image: ' ', //stores the link to the sonar icon image
 	x: 820, //x position to draw the sonar icon
 	y: 60, //y position to draw the sonar icon
-	prevX: 800, //previous x position before the sonar icon is clicked and dragged
-	prevY: 125, //previous y position before the sonar icon is clicked and dragged
+	prevX: 820, //previous x position before the sonar icon is clicked and dragged
+	prevY: 60, //previous y position before the sonar icon is clicked and dragged
 	width: 65,
 	height: 140, //size of the sonar icon
 	//size: 100,
