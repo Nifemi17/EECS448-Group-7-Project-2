@@ -38,7 +38,7 @@ function drawShips() {
 
 function placeShipPic(centerR, centerC) {
 	
-	if (centerC >= 0 && centerC < 10 && centerR >= 0 && centerR < 8)
+	if (centerC >= 0 && centerC < 10 && centerR >= 0 && centerR < 9)
 	{
         shipIc.x = (100 + ((colSelect) * 65));
 		shipIc.y = (75 + ((rowSelect) * 65));
