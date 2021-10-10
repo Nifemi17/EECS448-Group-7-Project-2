@@ -24,8 +24,9 @@ function drawShips() {
 		}
 	}
 	
-    if(gamePhase == "place")
+    if(gamePhase == "place") {
 		context.drawImage(shipIc.image, shipIc.x, shipIc.y, shipIc.width, shipIc.height);
+	}
 	
 	else if (gamePhase == "play") {
 		for (let i = 0; i < shipNum; i++) {
@@ -37,31 +38,17 @@ function drawShips() {
 }
 
 function placeShipPic(centerR, centerC) {
+    shipIc.x = (100 + ((colSelect) * 65));
+	shipIc.y = (75 + ((rowSelect) * 65));
+    shipIc.prevX = shipIc.x;
+	shipIc.prevY = shipIc.y;
 	
-	if (centerC >= 0 && centerC < 10 && centerR >= 0 && centerR < 9)
-	{
-        shipIc.x = (100 + ((colSelect) * 65));
-		shipIc.y = (75 + ((rowSelect) * 65));
-        shipIc.prevX = shipIc.x;
-		shipIc.prevY = shipIc.y;
-        if (shipIc.isPlaced == true) {
-            shipIc.prevX = shipIc.x;
-		    shipIc.prevY = shipIc.y;
-        }
-        else {
-            shipIc.isPlaced = true;
-		    shipIc.height = 65;
-		    shipIc.width = 65+((curShipIndex)*65);
-        }
 
-		playerBoards[playerTurn].ships[curShipIndex].setImage();
-	}
-	
-	else
-	{
-		cancelShipMove();
-		console.log("Invalid ship placement");
-	}
+    shipIc.isPlaced = true;
+	shipIc.height = 65;
+	shipIc.width = 65+((curShipIndex)*65);
+		
+	playerBoards[playerTurn].ships[curShipIndex].setImage();
 }
 
 /**
@@ -69,6 +56,7 @@ function placeShipPic(centerR, centerC) {
 * @post sonar icon returned to previous position before being dragged
 */
 function cancelShipMove() {
+	console.log(shipIc.prevX, shipIc.prevY)
 	let tempX = shipIc.prevX;
 	let tempY = shipIc.prevY;
 	console.log(shipIc.prevX, shipIc.prevY);
@@ -80,11 +68,10 @@ function resetShip() {
 	shipIc.isEnabled = false;
 	shipIc.x = 820;
 	shipIc.y = 60;
-	shipIc.prevX = 800;
-	shipIc.prevY = 125;
+	shipIc.prevX = 820;
+	shipIc.prevY = 60;
 	shipIc.height = 140;
 	shipIc.width = 65;
-	//shipIc.size = 100;
 	shipIc.isPlaced = false;
 	shipIc.isDragging = false;
 }

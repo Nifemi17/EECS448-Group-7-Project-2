@@ -564,7 +564,6 @@ document.addEventListener('mousedown', function(event) {
         }
         else if ((event.pageX > 1250 && event.pageX < 1440) && (event.pageY > 700 && event.pageY < 785)) {
             if (isHighlight) {
-                resetShip();
                 isHighlight = false;
                 Confirm();
             }
@@ -678,17 +677,22 @@ document.addEventListener('mouseup', function(event) {
                 colSelect = temp.col;
                 boardSelect = temp.playerBoard;
                 isHighlight = true;
-
+				placeShipPic(rowSelect, colSelect);
             }
             else {
+				cancelShipMove();
                 window.alert("Invalid placement! Try again within the grid.")
             }
         }
 		
+		else {
+			cancelShipMove();
+		}
+		
 		console.log("boardSelect: ", boardSelect);
 		shipIc.isDragging = false;
 		console.log("isDragging: ", shipIc.isDragging);
-		placeShipPic(rowSelect, colSelect);
+
     }
 })
 

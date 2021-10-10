@@ -141,19 +141,19 @@ function setShipNum(n){
                 playerTurn = 0;
                 gamePhase = "play";
                 isHighlight = false;
-                resetShip();
             }
             else {
                 curShipIndex = shipNum - 1;
                 playerTurn = 1;
                 isHighlight = false;
-                resetShip();
             }
         }
     }
     else {
         window.alert("Invalid placement! Try again in a spot with no ship.");
     }
+	
+	resetShip();
 }
 
 
