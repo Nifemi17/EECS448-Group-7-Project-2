@@ -151,7 +151,9 @@ function setShipNum(n){
         }
     }
     else {
-        window.alert("Invalid placement! Try again in a spot with no ship.");
+		if (playerTurn == 0 || (playerTurn == 1 && secondPlayer != "computer")) {
+			window.alert("Invalid placement! Try again in a spot with no ship.");
+		}
     }
 	
 	isHighlight = false;

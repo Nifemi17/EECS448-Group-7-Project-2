@@ -35,6 +35,7 @@ Once a player has sunk all of the opponent's ships, they immediatley win.
 ----------------------------------------------------------------------------------
 */
 
+
 let canvas;
 let context;
 let gamePhase = "intro"; //string that determines what state of the game is displayd {"setup", "place", "play", "end"}
@@ -64,6 +65,14 @@ function gamePlace()
     fillGrid(playerTurn);
     randomShipPlacementAI();
 	drawShips();
+	if (playerTurn == 1 && secondPlayer == "computer") {
+		randomShipPlacementAI();
+	}
+	else {
+		drawGrid();
+		fillGrid(playerTurn);
+		drawShips();
+	}
 }
 
 /**
@@ -244,8 +253,6 @@ function drawGrid()
 
     if(gamePhase == "place")
     {
-        if (secondPlayer == "Player2")
-        {
             if(playerTurn == 0)
             {
 	        context.fillText("Player 1", 810, 425);
