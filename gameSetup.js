@@ -153,6 +153,7 @@ function setShipNum(n){
         window.alert("Invalid placement! Try again in a spot with no ship.");
     }
 	
+	isHighlight = false;
 	resetShip();
 }
 

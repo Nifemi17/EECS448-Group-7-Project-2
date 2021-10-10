@@ -448,6 +448,8 @@ function Shoot(r, c){
     else {
         throw "invalid shot";
     }
+	
+	isHighlight = false;
 }
 
 /**
