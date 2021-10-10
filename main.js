@@ -58,8 +58,9 @@ let difficulty;
  */
 function gamePlace()
 {
-    drawGrid();
+	drawGrid();
     fillGrid(playerTurn);
+	drawShips();
 }
 
 /**
@@ -71,6 +72,8 @@ function gamePlay()
     fillGrid(playerTurn);
 	drawSonarIns(context);
 	drawSonar(context);
+    drawShips();
+	drawHitsAndMisses(playerTurn);
 }
 
 /**
@@ -345,6 +348,9 @@ document.addEventListener("DOMContentLoaded", () => {
     canvas = document.querySelector("#gameCanvas");
     context = canvas.getContext("2d");
 	sonarIc.image = document.getElementById('sonar');
+    shipIc.image = document.getElementById('ship');
+	hitIc = document.getElementById('hit');
+	missIc = document.getElementById('miss');
     refresh();
 
     isHighlight = false;
@@ -538,6 +544,7 @@ document.addEventListener('mousedown', function(event) {
     }
     //SECTION 2
     else if(gamePhase == "place"){
+        /*
         if ((event.pageX > 100 && event.pageX < 750) && (event.pageY > 75 && event.pageY < 660)) {
             let temp = clickCoord(event.pageX, event.pageY);
             if (isValidShipCoord(temp.row, temp.col, curShipIndex + 1, playerBoards[playerTurn].ships[curShipIndex].orientation)) {
@@ -550,8 +557,15 @@ document.addEventListener('mousedown', function(event) {
                 window.alert("Invalid placement! Try again within the grid.")
             }
         }
+        */
+        if ((event.pageX > shipIc.x && event.pageX < shipIc.x + shipIc.width) && (event.pageY > shipIc.y && event.pageY < shipIc.y + shipIc.height)) {
+            shipIc.isDragging = true;
+			console.log ("isDragging: ", shipIc.isDragging);
+        }
         else if ((event.pageX > 1250 && event.pageX < 1440) && (event.pageY > 700 && event.pageY < 785)) {
             if (isHighlight) {
+                resetShip();
+                isHighlight = false;
                 Confirm();
             }
         }
@@ -560,6 +574,7 @@ document.addEventListener('mousedown', function(event) {
         }
     }
     else if(gamePhase == "play"){
+        
         if ((event.pageX > 1000 && event.pageX < 1650) && (event.pageY > 75 && event.pageY < 660)) {
 			let temp = clickCoord(event.pageX, event.pageY);
 			rowSelect = temp.row;
@@ -609,7 +624,9 @@ document.addEventListener('mousedown', function(event) {
     else if(gamePhase == "intermission"){
         if(720 < event.pageX && 950 > event.pageX){
             if(600 < event.pageY && 700 > event.pageY){
+                
                 gamePhase = "play";
+                
             }
 	    }
     }
@@ -630,6 +647,10 @@ document.addEventListener('mousemove', function (event) {
 		sonarIc.x = event.pageX - (sonarIc.size/2);
 		sonarIc.y = event.pageY - (sonarIc.size/2);
 	}
+    else if (shipIc.isDragging == true) {
+		shipIc.x = event.pageX - (shipIc.width/2);
+		shipIc.y = event.pageY - (shipIc.height/2);
+	}
 })
 
 /*
@@ -648,4 +669,26 @@ document.addEventListener('mouseup', function(event) {
 		console.log("isDragging: ", sonarIc.isDragging);
 		placeSonar(rowSelect, colSelect, boardSelect);	
 	}
+    else if (shipIc.isDragging == true && gamePhase == "place") {
+		
+        if ((event.pageX > 100 && event.pageX < 750) && (event.pageY > 75 && event.pageY < 660)) {
+            let temp = clickCoord(event.pageX, event.pageY);
+            if (isValidShipCoord(temp.row, temp.col, curShipIndex + 1, playerBoards[playerTurn].ships[curShipIndex].orientation)) {
+                rowSelect = temp.row;
+                colSelect = temp.col;
+                boardSelect = temp.playerBoard;
+                isHighlight = true;
+
+            }
+            else {
+                window.alert("Invalid placement! Try again within the grid.")
+            }
+        }
+		
+		console.log("boardSelect: ", boardSelect);
+		shipIc.isDragging = false;
+		console.log("isDragging: ", shipIc.isDragging);
+		placeShipPic(rowSelect, colSelect);
+    }
 })
+

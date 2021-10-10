@@ -141,10 +141,13 @@ function setShipNum(n){
                 playerTurn = 0;
                 gamePhase = "play";
                 isHighlight = false;
+                resetShip();
             }
             else {
                 curShipIndex = shipNum - 1;
                 playerTurn = 1;
+                isHighlight = false;
+                resetShip();
             }
         }
     }

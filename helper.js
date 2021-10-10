@@ -57,3 +57,25 @@ function canSwitchOrientation(row, col, length, orientation) {
     }
     return false;
 }
+function drawHitsAndMisses(player) {
+    for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 10; c++) {
+			if (playerBoards[player].key[r][c] >= 0 && playerBoards[player].key[r][c] <= 6) {
+				console.log("playerBoards[player].key[r][c]: ", playerBoards[player].key[r][c])
+				context.drawImage(hitIc, 100 + c*65, 75 + r*65, 65, 65);
+			}
+			
+			else if (playerBoards[player].key[r][c] == "#") {
+				context.drawImage(missIc, 100 + c*65, 75 + r*65, 65, 65);
+			}
+			
+			if (playerBoards[player].game[r][c] >= 0 && playerBoards[player].game[r][c] <= 6) {
+				context.drawImage(hitIc, 1000 + c*65, 75 + r*65, 65, 65);
+			}
+			
+			else if (playerBoards[player].game[r][c] == "#") {
+				context.drawImage(missIc, 1000 + c*65, 75 + r*65, 65, 65);
+			}
+		}
+	}
+}
