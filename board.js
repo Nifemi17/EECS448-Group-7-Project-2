@@ -139,7 +139,13 @@ class Board {
         }
         return false;
     }
-
+    isAiHit(r, c) {
+		console.log("key[r][c]: ", this.key[r][c]);
+        if (this.key[r][c] == "H") {
+            return true;
+        }
+        return false;
+    }
     /**
      * Changes the coordinate value of the key to a "#" to indicate a miss on the opponent's board
      * @param {number} r row index

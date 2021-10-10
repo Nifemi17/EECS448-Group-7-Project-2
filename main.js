@@ -52,6 +52,8 @@ let height = window.innerHeight;
 let width = window.innerWidth;
 let secondPlayer;
 let difficulty;
+//let ai;
+//let ortho;
 
 /**
  * Calls drawGrid and then fillGrid for the place phase, setting up the game board
@@ -60,7 +62,7 @@ function gamePlace()
 {
 	drawGrid();
     fillGrid(playerTurn);
-    //randomShipPlacementAI();
+    randomShipPlacementAI();
 	drawShips();
 }
 
@@ -320,7 +322,7 @@ function drawGrid()
             else if(playerTurn == 1)
             {
                 console.log("Computer sets");
-                randomShipPlacementAI();
+                //randomShipPlacementAI();
                 gamePhase = "play";
             }
         }
@@ -386,10 +388,12 @@ function drawGrid()
 	            //context.fillText("Computer", 810, 425);
                 if(difficulty == "easy")
                 {
-                    easyAIShot(playerBoards[1]);
+                    easyAIShot(playerBoards[0]);
                 }
                 else if(difficulty == "medium")
-                {}
+                {
+                    mediumAI(ai.nextShot, playerBoards[0]);
+                }
                 else if(difficulty == "hard")
                 {}
 	        }
@@ -539,7 +543,7 @@ function clickCoord(x, y)
 function Shoot(r, c){
     if (playerBoards[playerTurn].isValidShot(r, c)) {
         if(playerBoards[op(playerTurn)].isHit(r, c)) {
-            
+            console.log(playerBoards[op(playerTurn)].isHit(r, c));
             let sI = playerBoards[op(playerTurn)].findHitShip(r, c);
             console.log("sI: ", sI);
             console.log(playerBoards[playerTurn].ships[sI]);
@@ -577,8 +581,19 @@ function Shoot(r, c){
             gamePhase = "intermission";
         }
     }
+    
     else {
-        throw "invalid shot";
+        //throw "invalid shot";
+        try{
+            if (playerTurn == 1)
+            {
+                mediumAI(ai.nextShot,playerBoards[0]);
+            }
+        }
+        catch(err)
+        {
+            console.error(err);
+        }
     }
 	
 	isHighlight = false;

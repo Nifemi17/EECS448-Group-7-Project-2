@@ -97,3 +97,218 @@ function hardAIShot(userBoard) {
 		}
 	}
 }
+class AI {
+	nextShot = 'r';
+	initialHitRow = 0;
+	initialHitCol = 0;
+	
+	constructor() { }
+}
+
+class Orthogonal {
+	lastShotHit = false;
+	nextDir = 'u';
+	lastHitRow = 0;
+	lastHitCol = 0;
+
+	constructor() { }
+}
+
+let ai = new AI();
+let ortho = new Orthogonal();
+console.log("here",ai.nextShot);
+function mediumAI(nextShotforAI, userBoard) {
+	let row = 0;
+	let col = 0;
+	console.log("here",ai.nextShot);
+	if (nextShotforAI == 'r') {
+		console.log("here",ai.nextShot);
+		//console.log("Entered the if for mediumAI.");
+		row = getRandomInt(9);
+		col = getRandomInt(10);
+		ShootAI(row, col);
+		//if (playerBoards[playerTurn].isValidShot(row, col))
+			console.log("here shot");
+			console.log(playerBoards[op(playerTurn)].isAiHit(row, col));
+			ai.initialHitRow = row;
+			ai.initialHitCol = col;
+			ortho.lastHitRow = row;
+			ortho.lastHitCol = col;
+			if (playerBoards[op(playerTurn)].isHit(row, col))
+			{
+			console.log(playerBoards[op(playerTurn)].isHit(row, col));
+			console.log("here hit")
+			ai.nextShot = 'o';
+			console.log("here",ai.nextshot);
+			}
+			
+			
+		//}
+
+	}
+
+	else {
+		orthogonalShot(ortho.lastShotHit, ortho.lastHitRow, ortho.lastHitCol, ortho.nextDir);
+	}
+
+}
+
+function orthogonalShot(lastShotHit, r, c, nextDir) {
+	if (nextDir == 'u' && (r > 0)) {
+		ShootAI(r - 1, c);
+		if (playerBoards[playerTurn].isValidShot(r-1, c))
+		{
+			if (playerBoards[op(playerTurn)].isHit(r-1, c))
+			{
+				console.log("here",ai.nextshot);
+			ortho.lastShotHit = true;
+			ortho.lastHitRow = r - 1;
+			ortho.lastHitCol = c;
+			}
+		else if (!(playerBoards[op(playerTurn)].isHit(r-1, c)) || (!(playerBoards[playerTurn].isValidShot(r-1, c)) && lastShotHit)) {
+			ortho.nextDir = 'd';
+			ortho.lastHitRow = ai.initialHitRow;
+			ortho.lastHitCol = ai.initialHitCol;
+		}
+
+		else {
+			ortho.nextShot = 'r';
+		}
+	}
+	else {
+        throw "invalid shot";
+    }
+}
+	else if (nextDir == 'd' && (r < 9) ) {
+		Shoot(r + 1, c);
+		if (playerBoards[playerTurn].isValidShot(r+1, c))
+		{
+		if (playerBoards[op(playerTurn)].isHit(r+1, c)) {
+			ortho.lastShotHit = true;
+			ortho.lastHitRow = r + 1;
+			ortho.lastHitCol = c;
+		}
+
+		else if (!(playerBoards[op(playerTurn)].isHit(r+1, c)) && lastShotHit) {
+			ai.nextShot = 'r';
+		}
+		else {
+			ortho.nextShot = 'l';
+		}
+	}
+	else {
+        throw "invalid shot";
+    }
+	}
+
+	else if (nextDir == 'r') {
+		Shoot(r, c + 1);
+		if (playerBoards[playerTurn].isValidShot(r, c+1))
+		{
+		if (playerBoards[op(playerTurn)].isHit(r, c-1)) {
+			ortho.lastShotHit = true;
+			ortho.lastHitRow = r;
+			ortho.lastHitCol = c + 1;
+			console.log(ai.nextshot);
+		}
+		
+		else if (!(playerBoards[op(playerTurn)].isHit(r, c+1)) || (!(playerBoards[playerTurn].isValidShot(r, c+1)) && lastShotHit)) {
+			ortho.nextShot = 'l';
+			ortho.lastHitRow = ai.initialHitRow;
+			ortho.lastHitCol = ai.initialHitCol;
+		}
+
+		else {
+			ortho.nextShot = 'd';
+		}
+	}
+	else {
+        throw "invalid shot";
+    }
+	}
+
+	else {
+		Shoot(r, c - 1);
+		if (playerBoards[playerTurn].isValidShot(r, c-1))
+		{
+			if ((playerBoards[op(playerTurn)].isHit(r, c-1))) {
+			ortho.lastShotHit = true;
+			ortho.lastHitRow = r;
+			ortho.lastHitCol = c - 1;
+			}
+		else {
+			ai.nextShot = 'r';
+		}
+	}
+	else {
+        throw "invalid shot";
+    }
+	}
+
+}
+function ShootAI(r, c){
+    if (playerBoards[playerTurn].isValidShot(r, c)) {
+        if(playerBoards[op(playerTurn)].isHit(r, c)) {
+            console.log(playerBoards[op(playerTurn)].isHit(r, c));
+            let sI = playerBoards[op(playerTurn)].findHitShip(r, c);
+            console.log("sI: ", sI);
+            console.log(playerBoards[playerTurn].ships[sI]);
+            playerBoards[op(playerTurn)].ships[sI].setHit();
+
+            if (playerBoards[op(playerTurn)].ships[sI].isSunk()) {
+                
+                let coords = playerBoards[op(playerTurn)].ships[sI].getPosition();
+                playerBoards[op(playerTurn)].setKeySunkShip(sI + 1, coords);
+                playerBoards[playerTurn].setGameSunkShip(sI + 1, coords);
+                playerBoards[playerTurn].SunkShip();
+                
+                if(playerBoards[playerTurn].isGameOver()){
+                    gamePhase = "end";
+                }
+                else {
+                    playerTurn = op(playerTurn);
+                    shotOutcomeText = "Sunk Ship #" + (sI+1).toString() + "!";
+                    gamePhase = "intermission";
+                }
+            }
+            else {
+                playerBoards[op(playerTurn)].setKeyHit(r, c);
+                playerBoards[playerTurn].setGameHit(r, c);
+                playerTurn = op(playerTurn);
+                shotOutcomeText = "It was a hit!";
+                gamePhase = "intermission"
+				orthogonalShot(ortho.lastShotHit, ortho.lastHitRow, ortho.lastHitCol, ortho.nextDir);
+				try{
+					orthogonalShot(ortho.lastShotHit, ortho.lastHitRow, ortho.lastHitCol, ortho.nextDir);
+				}
+				catch(e)
+				{
+					console.error(e);
+				}
+            }
+        }
+        else {
+            playerBoards[op(playerTurn)].setKeyMiss(r, c);
+            playerBoards[playerTurn].setGameMiss(r, c);
+            playerTurn = op(playerTurn);
+            shotOutcomeText = "It was a miss!";
+            gamePhase = "intermission";
+        }
+    }
+    
+    else {
+        //throw "invalid shot";
+        try{
+            if (playerTurn == 1)
+            {
+                mediumAI(ai.nextShot,playerBoards[0]);
+            }
+        }
+        catch(err)
+        {
+            console.error(err);
+        }
+    }
+	
+	isHighlight = false;
+}
