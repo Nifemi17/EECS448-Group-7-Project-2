@@ -586,7 +586,7 @@ document.addEventListener('mousedown', function(event) {
 			}	
         }
 		
-		if ((event.pageX > 800 && event.pageX < (900)) && (event.pageY > 250 && event.pageY < (350))) {
+		if ((event.pageX > 800 && event.pageX < (900)) && (event.pageY > 250 && event.pageY < (350)) && !playerBoards[playerTurn].sonarUsed) {
 			if (!sonarIc.isEnabled) {
 				sonarIc.isEnabled = true;
 				isHighlight = false;

@@ -22,7 +22,7 @@ let sonarIc = {
 * @post Instructions for sonar ability are drawn on canvas
 */
 function drawSonarIns() {
-	context.fillText("Sonar:", 625, 700);
+	context.fillText("Sonar (1-time use):", 625, 700);
 	context.fillText("reveals the enemy ship positions within a 3x3 grid.", 625, 725);
 	context.fillText("when enabled, click and drag icon to place and", 625, 750);
 	context.fillText("'fire' button to confirm.", 625, 775);
@@ -94,6 +94,8 @@ function revealShips(r, c, opBoard, plBoard) {
 	else {
 		plBoard.revealEmptyPos(r, c);
 	}
+	
+	plBoard.sonarUsed = true;
 }
 
 /**

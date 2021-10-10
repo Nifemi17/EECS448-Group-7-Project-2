@@ -26,6 +26,10 @@ function drawShips() {
 	
     if(gamePhase == "place") {
 		context.drawImage(shipIc.image, shipIc.x, shipIc.y, shipIc.width, shipIc.height);
+		context.fillStyle = "black";
+		context.font = "12pt Georgia";
+		context.fillText("Click and drag", 800, 205);
+		context.fillText("to place ship", 805, 225);
 	}
 	
 	else if (gamePhase == "play") {
