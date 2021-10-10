@@ -79,6 +79,8 @@ class Board {
         for (let i = 0; i < this.shipNum; i++) {
             this.ships[i] = new Ship(i+1);
         }
+		
+		this.sonarUsed = false;
     }
 
     /**

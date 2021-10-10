@@ -134,6 +134,7 @@ function setShipNum(n){
     console.log("Hello confirm!");
     if (playerBoards[playerTurn].isValidSetShip(curShipIndex)) {
         playerBoards[playerTurn].setShip(curShipIndex);
+		playerBoards[playerTurn].ships[curShipIndex].setImage();
         curShipIndex--;
 
         if (curShipIndex < 0) {
@@ -145,12 +146,16 @@ function setShipNum(n){
             else {
                 curShipIndex = shipNum - 1;
                 playerTurn = 1;
+                isHighlight = false;
             }
         }
     }
     else {
         window.alert("Invalid placement! Try again in a spot with no ship.");
     }
+	
+	isHighlight = false;
+	resetShip();
 }
 
 

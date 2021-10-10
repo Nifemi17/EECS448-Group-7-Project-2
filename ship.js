@@ -5,7 +5,15 @@ class Ship {
     constructor(length) {
         this.length = length;
         this.HP = length;
-        this.orientation = "H"; // Default Horizontal
+        this.orientation = "V"; // Default Horizontal
+		this.shipImage = {
+			image: ' ', //stores the link to the sonar icon image
+			x: 0, //x position to draw the sonar icon
+			y: 0, //y position to draw the sonar icon
+			width: 0,
+			height: 0, //size of the sonar icon
+			isPlaced: false
+		};
     }
 
     /**
@@ -14,9 +22,11 @@ class Ship {
     switchOrientation() {
         if (this.orientation == "V") {
             this.orientation = "H";
+            switchShipH();
         }
         else {
             this.orientation = "V";
+            switchShipV();
         }
     }
 
@@ -89,4 +99,27 @@ class Ship {
         }
         return false;
     }
+	
+	setImage() {
+		this.shipImage.image = shipIc.image;
+		this.shipImage.x = shipIc.x;
+		this.shipImage.y = shipIc.y;
+		this.shipImage.width = shipIc.width;
+		this.shipImage.height = shipIc.height;
+		this.shipImage.isPlaced = true;
+	}
+	
+	draw(isOpponent) {
+		if (isOpponent) {
+			context.drawImage(this.shipImage.image, this.shipImage.x + 900, this.shipImage.y, this.shipImage.width, this.shipImage.height);
+		}
+		
+		else {
+			context.drawImage(this.shipImage.image, this.shipImage.x, this.shipImage.y, this.shipImage.width, this.shipImage.height);
+		}
+	}
+	
+	getIsPlaced() {
+		return this.shipImage.isPlaced;
+	}
 }
