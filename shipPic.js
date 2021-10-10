@@ -41,8 +41,8 @@ function drawShips() {
 }
 
 function placeShipPic(centerR, centerC) {
-    shipIc.x = (100 + ((colSelect) * 65));
-	shipIc.y = (75 + ((rowSelect) * 65));
+    shipIc.x = (100 + ((centerC) * 65));
+	shipIc.y = (75 + ((centerR) * 65));
     shipIc.prevX = shipIc.x;
 	shipIc.prevY = shipIc.y;
 	
