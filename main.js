@@ -61,10 +61,7 @@ let difficulty;
  */
 function gamePlace()
 {
-	drawGrid();
-    fillGrid(playerTurn);
-    randomShipPlacementAI();
-	drawShips();
+
 	if (playerTurn == 1 && secondPlayer == "computer") {
 		randomShipPlacementAI();
 	}
@@ -253,7 +250,9 @@ function drawGrid()
 
     if(gamePhase == "place")
     {
-            if(playerTurn == 0)
+        if(secondPlayer == "Player2") {
+     
+           if(playerTurn == 0)
             {
 	        context.fillText("Player 1", 810, 425);
 	        }
@@ -334,7 +333,7 @@ function drawGrid()
             }
         }
         
-      
+    }
 
 
 
