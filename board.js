@@ -90,7 +90,6 @@ class Board {
      */
     isValidSetShip(shipIndex) {
         let coords = this.ships[shipIndex].getPosition();
-        console.log("IsValidSetShip Coords: ", coords);
         for (let i = 0; i < shipIndex + 1; i++) {
             let c = coords[i];
             if (this.key[c[0]][c[1]] != ".") {
@@ -106,7 +105,6 @@ class Board {
      */
     setShip(shipIndex) {
         let coords = this.ships[shipIndex].getPosition();
-        console.log("setShip Coords: ", coords);
         for (let i = 0; i < shipIndex + 1; i++) {
             let c = coords[i];
             this.key[c[0]][c[1]] = "X";
@@ -136,14 +134,12 @@ class Board {
      * @returns {boolean} checks if the key has been hit
      */
     isHit(r, c) {
-		console.log("key[r][c]: ", this.key[r][c]);
         if (this.key[r][c] == "X") {
             return true;
         }
         return false;
     }
     isAiHit(r, c) {
-		console.log("key[r][c]: ", this.key[r][c]);
         if (this.key[r][c] == "H") {
             return true;
         }
@@ -238,7 +234,6 @@ class Board {
 	* @param c column of position on the board
 	*/
 	revealShipPos(r, c) {
-		console.log("got to revealShip");
 		if (this.game[r][c] == ".") {
 			this.game[r][c] = "R";
 		}
@@ -253,11 +248,9 @@ class Board {
 	* @param c column of position on the board
 	*/
 	revealEmptyPos(r, c) {
-		console.log("got to revealEmpty");
 		if (this.game[r][c] == ".") {
 			this.game[r][c] = "W";
 		}
-		console.log("game[r][c]: ", this.game[r][c]);
 	}
 
     /**

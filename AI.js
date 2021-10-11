@@ -132,7 +132,6 @@ function medAIShot (userBoard, aiBoard) {
 		
 		let curDir = nextShot.nextDir;
 		let shot = orthSelect(aiBoard, curDir);
-		console.log("shot.row: ", shot.row,"shot.col: ", shot.col);
 		
 		if (userBoard.isHit(shot.row, shot.col)) {
 			nextShot.foundShip = true;
