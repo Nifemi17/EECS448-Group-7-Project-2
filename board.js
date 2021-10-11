@@ -247,7 +247,6 @@ class Board {
 	* @param c column of position on the board
 	*/
 	revealEmptyPos(r, c) {
-		console.log("got to revealEmpty");
 		if (this.game[r][c] == ".") {
 			this.game[r][c] = "W";
 		}
