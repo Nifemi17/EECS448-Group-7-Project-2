@@ -123,7 +123,10 @@ class Board {
         if (this.game[r][c] == "." || this.game[r][c] == "R" || this.game[r][c] == "W") {
             return true;
         }
-        return false;
+		
+		else {
+			return false;
+		}
     }
 
     /**
