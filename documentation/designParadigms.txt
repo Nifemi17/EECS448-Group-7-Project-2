@@ -1,0 +1,19 @@
+For project 1, we think that team 7 used either top down functional decomposition 
+design or object oriented design. Team 7 used JavaScript and HTML to code their 
+project, which is one reason why we assumed that they may have used top down 
+functional decomposition. From looking at their code, it seemed that at the 
+beginning they had a big picture idea of how they wanted to go about the project. 
+As the code progresses, they worked their way through different methods that they 
+needed throughout the project and implemented the methods by breaking them down 
+into smaller components that were easier to implement than a big component would be. 
+However, they did not do the best job of making the components super small, as many 
+functions that could have been broken down into smaller parts were not actually broken 
+down, but rather left as long functions. This is why we were between top down functional 
+decomposition and object oriented design when deciding which paradigm that they used. 
+Even though JavaScript is not specifically known as an object oriented programming 
+language, team 7 used it as though it is that kind of language. They had some components 
+defined as objects, for example the boards and ships. They also assigned methods to these 
+objects and classes for manipulating the data of the game. This was not the easiest for 
+us to interpret, as none of us had ever used classes in JavaScript before. The code we 
+received was a little bit unorganized, so trying to figure out the design paradigm that they 
+used was not super clear and a little difficult to do. 

@@ -1,0 +1,5 @@
+https://www.w3schools.com/jsref/prop_win_innerheight.asp
+
+https://stackoverflow.com/questions/1664785/resize-html5-canvas-to-fit-window
+
+https://www.youtube.com/watch?v=C22hQKE_32c&t=802s
