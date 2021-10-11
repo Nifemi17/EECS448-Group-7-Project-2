@@ -350,10 +350,9 @@ function drawGrid()
         context.fillText("Fire", 1300, 750);
 	    context.fillText("Legend:", 100, 700);
 	    context.fillText(". = empty water", 100, 725);
-	    context.fillText("X = a ship on your board", 100, 750);
-	    context.fillText("0 = hit on the enemy board", 100, 775);
-	    context.fillText("# = miss on the enemy board", 100, 800);
-	    context.fillText("number = size of a ship after it's sunk", 100, 825);
+	    context.fillText("black oval = a ship on your board", 100, 750);
+	    context.fillText("explosion = hit on the enemy board", 100, 775);
+	    context.fillText("water emoji = miss on the enemy board", 100, 800);
         if (secondPlayer == "Player2")
         {
 	        if(playerTurn == 0){
