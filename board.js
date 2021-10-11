@@ -1,66 +1,3 @@
-/*
-
-Columns: [A-J] (10 total)
-Rows:    [1-9] (9 total)
-Positions: (r, c)
-Key:                        Game:
-. X X X . . . . . .         . . . . . . . 2 2 #
-. . . . . . . . . .         . . # . . . . . . .
-. . . . . . . X . .         . . 3 . . . . . . .
-. . X X . . . X . .         . . 3 . . . . . . .
-. . . . . . . X . .         . . 3 . . . # . . .
-. . . . . . . X . .         . . . . . # 0 0 0 .
-X . . . . . . . . .         . . . . . . # . . .
-. . . . . . . . . .         . . . # . . . . . .
-. . . . . . . . . .         # . . . . . . . . .
-
-Symbols:
-.   -> Open Water
-X   -> Ship
-#   -> Miss
-0   -> Hit
-1-6 -> Sunken Ship
-
-Shooting Logic:
-    Get Coordinates (r, c)
-    |
-    isValidHit -- False -- Reshoot
-    |
-    True
-    |
-    isHit -- False -- setKeyMiss & setGameMiss
-    |
-    True
-    |
-    findHitShip --- shipIndex (sI)
-                    |
-                    ships[sI].setHit
-                    |
-                    ships[sI].isSunk -- False -- setKeyHit & setGameHit
-                    |
-                    True
-                    |
-                    ships[sI].getPosition
-                    |
-                    coords
-                    |
-                    setKeySunkShip(sI+1, coords)   [use (sI+1) bc ship index is 1 - ship.length]
-                    setGameSunkShip(sI+1, coords)
-                    SunkShip()
-                    |
-                    isGameOver() -- False -- Switch Sides
-                    |
-                    True
-                    |
-                    End Game
-
-
-
-*/
-
-/**
- * A class for the boards
- */
 class Board {
     constructor(shipNum) {
         this.shipNum = shipNum;
@@ -150,9 +87,6 @@ class Board {
      * @param {number} r row index
      * @param {number} c column index
      */
-    // Use this on the opponents board if missed
-    // Meaning if p1 misses call board_p2.setKeyMiss(r,c);
-    // and if p2 misses call board_p1.setKeyMiss(r,c);
     setKeyMiss(r, c) {
         this.key[r][c] = "#";
     }
@@ -190,9 +124,6 @@ class Board {
      * @param {number} r row index
      * @param {number} c column index
      */
-    // Use this on the opponents board if hit
-    // Meaning if p1 hits call board_p2.setKeyHit(r,c);
-    // and if p2 hits call board_p1.setKeyHit(r,c);
     setKeyHit(r, c) {
         this.key[r][c] = "0";
     }
@@ -202,9 +133,6 @@ class Board {
      * @param {number} r row index
      * @param {number} c column index
      */
-    // Use this on the current users board if hit
-    // Meaning if p1 hits call board_p1.setKeyHit(r,c);
-    // and if p2 hits call board_p2.setKeyHit(r,c);
     setGameHit(r, c) {
         this.game[r][c] = "0";
     }
@@ -215,9 +143,6 @@ class Board {
      * @param {number} shipLength the length of the given ship
      * @param {Array} coords an array of the given ship's coords
      */
-    // Use this on the opponents board if sunk ship
-    // Meaning if p1 sinks a ship call board_p2.setKeySunkShip(sI+1, coords);
-    // and if p2 sinks a ship call board_p1.setKeySunkShip(sI+1, coords);
     setKeySunkShip(shipLength, coords) {
         var shipChar = shipLength.toString();
         for(let i = 0; i < shipLength; i++) {
@@ -237,7 +162,6 @@ class Board {
 		if (this.game[r][c] == ".") {
 			this.game[r][c] = "R";
 		}
-		console.log(this.game[r][c]);
 	}
 	
 	/**
@@ -259,9 +183,6 @@ class Board {
      * @param {number} shipLength the length of the given ship
      * @param {Array} coords an array of the given ship's coords 
      */
-    // Use this on the current users board if sunk ship
-    // Meaning if p1 sinks a ship call board_p1.setGameSunkShip(sI+1, coords);
-    // and if p2 sinks a ship call board_p2.setGameSunkShip(sI+1, coords);
     setGameSunkShip(shipLength, coords) {
         var shipChar = shipLength.toString();
         for (let i = 0; i < shipLength; i++) {
@@ -269,13 +190,6 @@ class Board {
             this.game[coord[0]][coord[1]] = shipChar;
         }
     }
-
-    /**
-     * Add one to the number of sunk ships on the opponen't board
-     */
-    // Call if current user sinks a ship
-    // Meaning if p1 sinks a ship then call board_p1.SunkShip()
-    // and if p2 sinks a ship then call board_p2.SunkShip()
     SunkShip() {
         this.shipsSunk++;
     }

@@ -1,5 +1,5 @@
 
-let nextShot = {foundShip: false, originR: 0, originC: 0, lastWasHit: false, curR: 0, curC: 0, nextDir: 'u', shipOr: ' '};
+
 /*
 ----------------------------------------------------------------------------------
 GAME RULES:
@@ -55,8 +55,7 @@ let height = window.innerHeight;
 let width = window.innerWidth;
 let secondPlayer;
 let difficulty;
-//let ai;
-//let ortho;
+let nextShot = {foundShip: false, originR: 0, originC: 0, lastWasHit: false, curR: 0, curC: 0, nextDir: 'u', shipOr: ' '};
 
 /**
  * Calls drawGrid and then fillGrid for the place phase, setting up the game board
@@ -79,6 +78,21 @@ function gamePlace()
  */
 function gamePlay()
 {
+	if(playerTurn == 1 && secondPlayer == "computer"){
+        if(difficulty == "easy")
+        {
+            easyAIShot(playerBoards[0]);
+        }
+        else if(difficulty == "medium")
+        {
+			medAIShot(playerBoards[0], playerBoards[1]);
+		}
+        else if(difficulty == "hard")
+        {
+			hardAIShot(playerBoards[0]);
+		}
+	}
+	
     drawGrid();
     fillGrid(playerTurn);
 	drawSonarIns(context);
@@ -117,7 +131,6 @@ function gameIntermission()
     {
         context.fillText(shotOutcomeText, 750, 350);
         if(playerTurn == 1){
-            //context.fillText("Player 2 Next", 750, 400);
             console.log("computer went");
         }
         else {
@@ -144,7 +157,6 @@ function gameEnd()
 {
     if (secondPlayer == "Player2")
     { 
-    //confirm button
     context.beginPath();
     context.moveTo(720, 600);
     context.lineTo(950, 600);
@@ -279,16 +291,13 @@ function drawGrid()
             context.lineTo(1250, 700);
             context.stroke();
             context.closePath();
-            //context.beginPath();
             if (isHighlight == true)
             {
-                //console.log("isHighlight:", isHighlight);
                 playerBoards[playerTurn].ships[curShipIndex].setPosition(rowSelect, colSelect);
                 let coords = playerBoards[playerTurn].ships[curShipIndex].getPosition();
                 for (let i = 0; i < curShipIndex + 1; i++) {
                     var coord = coords[i];
                     setHighlight(coord[1], coord[0], boardSelect);
-                    //console.log(coord[0]);
                 }
             }
         }
@@ -315,10 +324,8 @@ function drawGrid()
                 context.lineTo(1250, 700);
                 context.stroke();
                 context.closePath();
-            //context.beginPath();
                 if (isHighlight == true)
                 {
-                //console.log("isHighlight:", isHighlight);
                 playerBoards[playerTurn].ships[curShipIndex].setPosition(rowSelect, colSelect);
                 let coords = playerBoards[playerTurn].ships[curShipIndex].getPosition();
                 for (let i = 0; i < curShipIndex + 1; i++) {
@@ -330,7 +337,6 @@ function drawGrid()
             else if(playerTurn == 1)
             {
                 console.log("Computer sets");
-                //randomShipPlacementAI();
                 gamePhase = "play";
             }
         }
@@ -391,21 +397,6 @@ function drawGrid()
             setHighlight(colSelect, rowSelect, boardSelect);
             }
 	        }
-	        else if(playerTurn == 1){
-	            //context.fillText("Computer", 810, 425);
-                if(difficulty == "easy")
-                {
-                    easyAIShot(playerBoards[0]);
-                }
-                else if(difficulty == "medium")
-                {
-					medAIShot(playerBoards[0], playerBoards[1]);
-				}
-                else if(difficulty == "hard")
-                {
-					hardAIShot(playerBoards[0]);
-				}
-	        }
         }
         // Box around Confirm
         
@@ -440,7 +431,6 @@ function fillGrid(player)
             for (let c = 0; c < 10; c++) {
                     context.fillText(playerBoards[player].key[r][c], 125 + c*65, 110 + r*65);
                     context.fillText(playerBoards[player].game[r][c], 1027 + c*65, 110 + r*65);
-                    //context.fillText("helloword,", 125 + c*65, 110 + r*65);
             }
         }  
     }
@@ -545,7 +535,7 @@ function clickCoord(x, y)
 
 
 /**
- * Davis: This one needs a more detailed description than I can give
+ * checks if the passed shot is a hit or a miss, updates the corresponding Board and Ship objects.
  * @param {number} r row index
  * @param {number} c column index
  */
@@ -596,17 +586,7 @@ function Shoot(r, c){
     }
     
     else {
-        //throw "invalid shot";
-        try{
-            if (playerTurn == 1)
-            {
-                mediumAI(ai.nextShot,playerBoards[0]);
-            }
-        }
-        catch(err)
-        {
-            console.error(err);
-        }
+        throw "invalid shot";
     }
 	
 	isHighlight = false;
@@ -620,7 +600,6 @@ document.addEventListener("keydown", function(event){
     //SECTION 1
     if(gamePhase == "setup"){
         userShips = event.key;
-        //console.log(userShips);
     }
     //SECTION 2
     if(gamePhase == "place"){
@@ -648,7 +627,6 @@ document.addEventListener('mousedown', function(event) {
             if((height/2) < event.pageY && ((height/2) + 50) > event.pageY){
                     secondPlayer = "Player2";
                     gamePhase = "setup";
-                    //selection();
             }
         }
         if(((width/2)+100) < event.pageX && ((width/2)+300) > event.pageX){
@@ -709,24 +687,8 @@ document.addEventListener('mousedown', function(event) {
     }
     //SECTION 2
     else if(gamePhase == "place"){
-        /*
-        if ((event.pageX > 100 && event.pageX < 750) && (event.pageY > 75 && event.pageY < 660)) {
-            let temp = clickCoord(event.pageX, event.pageY);
-            if (isValidShipCoord(temp.row, temp.col, curShipIndex + 1, playerBoards[playerTurn].ships[curShipIndex].orientation)) {
-                rowSelect = temp.row;
-                colSelect = temp.col;
-                boardSelect = temp.playerBoard;
-                isHighlight = true;
-            }
-            else {
-                window.alert("Invalid placement! Try again within the grid.")
-            }
-        }
-        */
         if ((event.pageX > shipIc.x && event.pageX < shipIc.x + shipIc.width) && (event.pageY > shipIc.y && event.pageY < shipIc.y + shipIc.height)) {
             shipIc.isDragging = true;
-			console.log ("isDragging: ", shipIc.isDragging);
-			console.log (shipIc);
         }
         else if ((event.pageX > 1250 && event.pageX < 1440) && (event.pageY > 700 && event.pageY < 785)) {
             if (isHighlight) {
@@ -764,7 +726,6 @@ document.addEventListener('mousedown', function(event) {
 		if ((event.pageX > sonarIc.x && event.pageX < sonarIc.x + sonarIc.size) && (event.pageY > sonarIc.y && event.pageY < sonarIc.y + sonarIc.size)) {
 			if (sonarIc.isEnabled == true) {
 				sonarIc.isDragging = true;
-				console.log ("isDragging: ", sonarIc.isDragging);
 			}
 		}
 			
