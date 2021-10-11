@@ -1,0 +1,53 @@
+Collection of Features (Project 2)
+
+---AI---
+-Let user choose AI or human player (buttons)
+
+-Let user choose difficulty (buttons)
+
+-3 difficulties
+  -Easy: random number generator to pick shots
+  -Medium: random number generator until ship is found, search orthogonally until ship sinks, reset
+  -Hard: all shots hit a ship until all ships sink
+
+-Choose a valid shot per turn
+
+-Add player selection screen and difficulty selection screen (if AI selected) before asking number of ships
+
+
+--Sonar--
+-Reveal within 3x3 grid selected by user:
+  -empty water
+  -unhit ship positions
+  
+-Toggle between choosing a shot and choosing a sonar location
+
+-Use sonar once per game (must track if each player has used theirs or not).
+
+-Leave hit/miss positions untouched
+  
+
+---Images---
+-Image for each ship (all current players, any sunk opponent ships)
+
+-Images for hit and miss
+
+-Image for Sonar Icon
+
+
+---Click and Drag---
+-Click and drag functionality for placing ships and sonar ability.
+
+-Placing ships:
+  -Draw icon to be dragged by player
+  -Draw icon in an initial position after placing each individual place
+  -Track when the icon is dropped, draw if within the board
+  -Draw vertically or horizontally based on orientation of ship
+  -Track image position for each ship's image
+  
+-Sonar:
+  -Draw icon to be dragged by player
+  -Draw icon when sonar is toggled on and hasn't been used yet
+  -Track when the icon is dropped onto board, increase size to cover 3x3 grid and draw if placed correctly
+  -Erase image when player confirms placement
+  
