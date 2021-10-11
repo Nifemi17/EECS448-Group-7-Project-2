@@ -1,3 +1,5 @@
+
+let nextShot = {foundShip: false, originR: 0, originC: 0, lastWasHit: false, curR: 0, curC: 0, nextDir: 'u', shipOr: ' '};
 /*
 ----------------------------------------------------------------------------------
 GAME RULES:
@@ -349,9 +351,13 @@ function drawGrid()
                     easyAIShot(playerBoards[1]);
                 }
                 else if(difficulty == "medium")
-                {}
+                {
+					medAIShot(playerBoards[0], playerBoards[1]);
+				}
                 else if(difficulty == "hard")
-                {}
+                {
+					hardAIShot(playerBoards[0]);
+				}
 	        }
         }
         // Box around Confirm
@@ -511,6 +517,10 @@ function Shoot(r, c){
                 playerBoards[op(playerTurn)].setKeySunkShip(sI + 1, coords);
                 playerBoards[playerTurn].setGameSunkShip(sI + 1, coords);
                 playerBoards[playerTurn].SunkShip();
+				
+				if (difficulty == "medium" && playerTurn == 1) {
+					resetNextShot();
+				}
                 
                 if(playerBoards[playerTurn].isGameOver()){
                     gamePhase = "end";
