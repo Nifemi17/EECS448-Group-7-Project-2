@@ -27,6 +27,7 @@ Oct-4
 Oct-5
   -Anna:         3:00
   -Yuri:         1:14
+  -Michael:	
 
 Oct-6
   -Team Meeting: 2:20
@@ -38,6 +39,8 @@ Oct-7
 
 Oct-9
   -Yuri:         4:18
+  -Michael:	1:00
   
 Oct-10
   -Rudro:        1:30
+  -Michael: 	4:00
