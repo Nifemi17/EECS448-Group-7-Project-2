@@ -17,12 +17,14 @@ Oct-2
 Oct-3
   -Rudro       : 1:30
   -Team Meeting: 1:00
+  -Nifemi       1:00
   
 Oct-4
   -Team Meeting: 3:00
   -Yuri:         6:10
   -Anna:         2:00
   -Rudro:        1:00
+  -Nifemi        1:00
 
 Oct-5
   -Anna:         3:00
@@ -43,7 +45,10 @@ Oct-9
   -Michael:	 1:00
   -Anna:         3:30
   -Team Meeting: 4:00
+  -Nifemi        3:00
   
 Oct-10
   -Rudro:        1:30
   -Michael: 	   4:00
+  -Anna:         3:00
+  -Nifemi:       4:00

@@ -99,7 +99,7 @@ class Ship {
         }
         return false;
     }
-	
+	// sets the user's ship placements with the ship image
 	setImage() {
 		this.shipImage.image = shipIc.image;
 		this.shipImage.x = shipIc.x;
